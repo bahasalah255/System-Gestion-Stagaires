@@ -1,16 +1,107 @@
+:root {
+  --primary: #6262e2;
+  --muted: #f6f7ff;
+  --border: #e6e9f0;
+  --text: #222;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #f7f9ff 0%, #ffffff 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
 .formulaire {
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  align-items: flex-start;
+  padding: 48px 20px;
+  gap: 24px;
 }
+
 .form {
-  border: 2px solid transparent;
-  padding: 60px 60px;
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 48px 48px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(98,98,226,0.06);
+  max-width: 560px;
+  width: 100%;
+}
+
+.sidebar {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-height: 640px;
+  width: 250px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(25,25,70,0.04);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin-top: 40px;
+  gap: 12px;
+  font-size: 16px;
+  padding: 0;
+}
+
+.links li a {
+  display: block;
+  padding: 10px 12px;
+  color: var(--text);
+  text-decoration: none;
   border-radius: 8px;
-  box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color .15s ease, transform .12s ease;
+}
+
+.links li a:hover {
+  background: rgba(98,98,226,0.06);
+  transform: translateY(-2px);
+}
+
+.back {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(98,98,226,0.14);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(98,98,226,0.18);
+}
+.stagaires {
+  border: 2px solid black;
+  
+}
+.utili {
+  margin-top: 100px;
+  
+}
+.btn-add {
+  margin-left: 430px ;
+}
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  .formulaire {
+    padding: 28px 12px;
+  }
+  .form {
+    padding: 32px 20px;
+    border-radius: 10px;
+  }
 }

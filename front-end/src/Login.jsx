@@ -8,6 +8,10 @@ function Login() {
   const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!nom || !password){
+        setMessage('les champs sont vides');
+        return ;
+    }
 
     // ✅ Le fetch doit être ICI, dans le handleSubmit
     fetch('http://localhost/gestion_ofppt/back-end/login.php', {
@@ -35,11 +39,14 @@ function Login() {
             navigate('/dashboard-formateur');   
          
       }
-      else {
+      else if(data.status === "ok" && data.user.role === 'stagaire') {
          localStorage.setItem('user',JSON.stringify(data.user))
             setMessage("Connexion réussie !");
             navigate('/dashboard-stagaire');   
          
+      }
+      else {
+        setMessage('Nom ou password incorrect');
       }
     })
     .catch(err => console.error("Erreur:", err));

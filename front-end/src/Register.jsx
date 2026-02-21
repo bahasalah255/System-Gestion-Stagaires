@@ -69,7 +69,7 @@ if(data.reussi == 'ook'){
           onChange={(e) => setPassword(e.target.value)}
         required/><br/>
         <div className='d-flex justify-content-center'>
-             <input type="submit" value="Se connecter" className='form-control' />
+             <input type="submit" value="Register" className='form-control' />
         <button type='button' onClick={handleclick} className='btn btn-danger'>Login</button>
         </div>
        
