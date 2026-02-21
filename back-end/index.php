@@ -1,4 +1,5 @@
 <?php
+/*
 require_once 'connexion.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -12,7 +13,6 @@ $stmt = $connexion->prepare('INSERT INTO USER (nom,prenom,email,password,role) v
 $stmt->execute([$nom,$prenom,$email,$password,$role]);
 $data = ['message' => 'avec success'];
 echo json_encode($data);
-
+*/
 
 ?>
-z

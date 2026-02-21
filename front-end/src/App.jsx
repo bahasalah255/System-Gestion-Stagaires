@@ -1,22 +1,23 @@
 import { useState,useEffect } from 'react'
 import Conn from './Conn.jsx'
+import Login from './Login.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Dashboard from './Dashboard.jsx'
+import Register from './Register.jsx'
 
 function App() {
-  
- const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost/gestion_ofppt/back-end/index.php")
-      .then(res => res.json())
-      .then(data => setData(data));
-  }, []);
   
   
  return (
 <>
+<BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path='/register' element={<Register/>}/>
+      </Routes>
+    </BrowserRouter>
 
- {data ? <p>{data.message}</p> : <p>Chargement...</p>}
-<Conn/>
 </>
  );
 }
