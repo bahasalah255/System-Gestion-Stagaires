@@ -2,19 +2,50 @@ import React,{useState,useEffect} from 'react'
 
 function Utili(){
     const [nom,setNom] = useState()
+    const [group,setGroup] = useState([])
     const [stnom,setstNom] = useState()
     const [telephone,settelephone] = useState()
     const [date,setdate] = useState()
     const [groupid,setgroupid] = useState()
+    
      const handleSubmit = (e) => {
-    e.preventDefault();
-
+     e.preventDefault();
+     fetch('http://localhost/gestion_ofppt/back-end/add_stagaire.php',{
+        method: 'POST',
+        headers : {
+             "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+  nom: stnom,
+  telephone: telephone,
+  date_naissance: date,
+  groupe_id: groupid
+})
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+}
+    
    useEffect(() => {
      fetch('http://localhost/gestion_ofppt/back-end/list-stagaire.php')
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        setNom(data)
+        fetch('http://localhost/gestion_ofppt/back-end/list-stagaire.php')
+        .then(res => res.json())
+        .then(data => setNom(data));
+    })
+    .catch(error => console.error('Error:', error));
+    
+   },[])
+   useEffect(() => {
+     fetch('http://localhost/gestion_ofppt/back-end/list_groupes.php')
+     
+    .then(response => 
+        response.json())
+    .then(datag => {
+        console.log(datag)
+        setGroup(datag)
     })
     .catch(error => console.error('Error:', error));
    },[])
@@ -33,23 +64,30 @@ function Utili(){
               </div>
 
               <div className="modal-body">
-                <form onSubmit={handlesubmit}>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label className="form-label">Nom</label>
-                    <input type="text" className="form-control" name='nom' value={nom} onChange={(e) => setstNom(e.target.value)}/>
+                    <input type="text" className="form-control" name='nom' value={stnom} onChange={(e) => setstNom(e.target.value)}/>
                   </div>
 
                   <div className="mb-3">
                     <label className="form-label">Telephone</label>
-                    <input type="tel" className="form-control" name='telephone'/>
+                    <input type="tel" className="form-control" name='telephone' onChange={(e) => settelephone(e.target.value)} />
                   </div>
                    <div className="mb-3">
                     <label className="form-label">Date Naissance</label>
-                    <input type="date" className="form-control" name='date'/>
+                    <input type="date" className="form-control" name='date' onChange={(e) => setdate(e.target.value)}/>
                   </div>
                    <div className="mb-3">
                     <label className="form-label">Group ID</label>
-                    <input type="text" className="form-control" name='groupid'/>
+                    <select name='groupid' className='form-select'>
+                        {group.map(g => (
+    <option key={g.id_group} value={g.id_group}>
+      {g.id_group}
+    </option>
+  ))}
+                    </select>
+                    
                   </div>
 
                   <button type="submit" className="btn btn-success w-100">
