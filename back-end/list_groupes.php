@@ -8,8 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-$stmt = $connexion->prepare("SELECT * FROM stagaire");
+$stmt = $connexion->prepare('SELECT * from Groupe');
 $stmt->execute();
-$stagiaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
-echo json_encode($stagiaires);
-?>
+$groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode($groupes);

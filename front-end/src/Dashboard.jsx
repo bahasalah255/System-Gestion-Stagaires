@@ -42,23 +42,23 @@ function Dashboard() {
         <div className='elements'>
             <ul className='links'>
               <NavLink to='/dashboard' end style={linkStyle}>
-                 <i class="bi bi-speedometer2"></i> Home
+                 <i className="bi bi-speedometer2"></i> Home
               </NavLink>
               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
                  <i className="bi bi-people me-2"></i>
     Stagiaires
               </NavLink>
               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
-              <i class="bi bi-person-workspace"></i> Formateurs
+              <i className="bi bi-person-workspace"></i> Formateurs
               </NavLink>
               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
-              <i class="bi bi-collection"></i> Groupes
+              <i className="bi bi-collection"></i> Groupes
               </NavLink>
                <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
-                 <i class="bi bi-book"></i> Modules
+                 <i className="bi bi-book"></i> Modules
               </NavLink>
                <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
-                 <i class="bi bi-file-earmark-text"></i> Notes
+                 <i className="bi bi-file-earmark-text"></i> Notes
               </NavLink>
                 <button className="btn btn-danger" onClick={handleLogout}>
             Se déconnecter
@@ -71,6 +71,7 @@ function Dashboard() {
       <div className="">
          <div className="p-4">
           <Outlet />
+          <p>v</p>
         </div>
     </div>
     </div>
