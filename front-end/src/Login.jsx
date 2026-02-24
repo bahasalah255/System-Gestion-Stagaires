@@ -14,7 +14,7 @@ function Login() {
     }
 
     // ✅ Le fetch doit être ICI, dans le handleSubmit
-    fetch('http://localhost/gestion_ofppt/back-end/login.php', {
+    fetch('http://localhost:8000/login.php', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -3,9 +3,9 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 $host = 'localhost';
 $dbname = 'gestion_ofppt';
-$port = "3308";
+$port = "3306";
 $username = 'root';
-$password = '';
+$password = 'salah123';
 $success = FALSE;
 try {
     $connexion = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);

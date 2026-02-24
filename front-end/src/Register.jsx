@@ -8,7 +8,7 @@ function Register(){
     const [password,setPassword] = useState('');
      const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost/gestion_ofppt/back-end/register.php',{
+    fetch('http://localhost:8000/register.php',{
         method: 'POST',
         headers : {
              "Content-Type": "application/json"

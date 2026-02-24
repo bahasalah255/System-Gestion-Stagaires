@@ -3,7 +3,7 @@ function Conn(){
     const [data,setData] = useState(null);
     const [error,setError] = useState(null);
     useEffect(() => {
-        fetch("http://localhost/gestion_ofppt/back-end/connexion.php")
+        fetch("http://localhost:8000/connexion.php")
             .then(res => res.json())
             .then(data => setData(data))
             .catch(err => setError(err));

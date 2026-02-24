@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+include 'connexion.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
