@@ -1,5 +1,5 @@
 <?php 
-require_once 'connexion.php';
+include 'connexion.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -12,15 +12,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $data = json_decode(file_get_contents("php://input"), true);
 $nom = $data['nom'];
 $telephone = $data['telephone'];
-$date = $data['date'];
-$groupeid = $data['groupeid'];
+$date = $data['date_naissance'];
+$groupeid = $data['groupe_id'];
 $stmt = $connexion->prepare("
-    INSERT INTO stagaire (telephone, date_naissance, groupe_id) 
-    VALUES (?, ?, ?)
+    INSERT INTO stagaire (nom,telephone, date_naissance, groupe_id) 
+    VALUES (?, ?, ?,?)
 ");
 
 $stmt->execute([
+    $nom,
     $telephone,
-    $date_naissance,
+    $date,
     $groupeid
 ]);

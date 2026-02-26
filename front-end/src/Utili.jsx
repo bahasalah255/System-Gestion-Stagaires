@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 function Utili(){
     const [nom,setNom] = useState()
@@ -7,10 +8,12 @@ function Utili(){
     const [telephone,settelephone] = useState()
     const [date,setdate] = useState()
     const [groupid,setgroupid] = useState()
+    const [nomgroupe,setnomgroup] = useState()
+    const navigate = useNavigate()
     
      const handleSubmit = (e) => {
      e.preventDefault();
-     fetch('http://localhost/gestion_ofppt/back-end/add_stagaire.php',{
+     fetch('http://localhost:8000/add_stagaire.php',{
         method: 'POST',
         headers : {
              "Content-Type": "application/json"
@@ -23,15 +26,17 @@ function Utili(){
 })
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {console.log(data)
+      navigate('dashboard')
+    })
 }
     
    useEffect(() => {
-     fetch('http://localhost/gestion_ofppt/back-end/list-stagaire.php')
+     fetch('http://localhost:8000/list-stagaire.php')
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        fetch('http://localhost/gestion_ofppt/back-end/list-stagaire.php')
+        fetch('http://localhost:8000/list-stagaire.php')
         .then(res => res.json())
         .then(data => setNom(data));
     })
@@ -39,16 +44,18 @@ function Utili(){
     
    },[])
    useEffect(() => {
-     fetch('http://localhost/gestion_ofppt/back-end/list_groupes.php')
+     fetch('http://localhost:8000/list_groupes.php')
      
     .then(response => 
         response.json())
     .then(datag => {
         console.log(datag)
         setGroup(datag)
+        setnomgroup(datag.nom_group)
     })
     .catch(error => console.error('Error:', error));
    },[])
+ 
     return(
         <>
         <h1>Stagaires</h1>
@@ -76,11 +83,11 @@ function Utili(){
                   </div>
                    <div className="mb-3">
                     <label className="form-label">Date Naissance</label>
-                    <input type="date" className="form-control" name='date' onChange={(e) => setdate(e.target.value)}/>
+                    <input type="date" className="form-control" name='date' value={date} onChange={(e) => setdate(e.target.value)}/>
                   </div>
                    <div className="mb-3">
                     <label className="form-label">Group ID</label>
-                    <select name='groupid' className='form-select'>
+                    <select name='groupid' className='form-select' onChange={(e) => setgroupid(e.target.value)}>
                         {group.map(g => (
     <option key={g.id_group} value={g.id_group}>
       {g.id_group}
@@ -90,7 +97,7 @@ function Utili(){
                     
                   </div>
 
-                  <button type="submit" className="btn btn-success w-100">
+                  <button type="submit" className="btn btn-success w-100" >
                     Enregistrer
                   </button>
                 </form>
@@ -113,15 +120,21 @@ function Utili(){
                         
                     </tr>
                 </thead>
+                <tbody>
             {nom && nom.map(user => {
            return(
-              <tr>
-            <td className='text-center fw-bold'>#{user.id_user}</td>
+              <tr key={user.id_stagaire}>
+            <td className='text-center fw-bold'>#{user.id_stagaire}</td>
             <td>{user.nom}</td>
+            <td>{user.telephone}</td>
+            <td>{user.date_naissance}</td>
+            <td>{user.groupe_id}</td>
+            <td>{nomgroupe}</td>
            </tr>
 
            );
         })}
+        </tbody>
         </table>
         </div>
         </div>

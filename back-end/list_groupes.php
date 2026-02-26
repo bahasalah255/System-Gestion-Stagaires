@@ -1,5 +1,5 @@
 <?php 
-require_once 'connexion.php';
+include 'connexion.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-$stmt = $connexion->prepare('SELECT * from Groupe');
+$stmt = $connexion->prepare('SELECT * from groupe');
 $stmt->execute();
 $groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($groupes);
