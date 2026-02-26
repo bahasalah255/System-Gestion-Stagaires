@@ -10,7 +10,32 @@ function Utili(){
     const [groupid,setgroupid] = useState()
     const [nomgroupe,setnomgroup] = useState()
     const navigate = useNavigate()
-    
+    const handledeleteform = (e) => {
+      e.preventDefault();
+      
+    }
+    const handledelete = (id) => {
+      console.log(id);
+      fetch('http://localhost:8000/delete.php',{
+          method : 'POST',
+          headers : {
+             "Content-Type": "application/json"
+          },
+      
+      body: JSON.stringify({
+        id : id
+      }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      // you can also update your state here to remove the deleted user from UI
+    })
+    .catch((err) => {
+      console.error("Error deleting:", err);
+    });
+};
+  
      const handleSubmit = (e) => {
      e.preventDefault();
      fetch('http://localhost:8000/add_stagaire.php',{
@@ -117,6 +142,7 @@ function Utili(){
                         <th scope="col">Telephone</th>
                         <th scope="col">Date de naissance</th>
                         <th scope="col">Group ID</th>
+                        <th scope="col">Actions</th>
                         
                     </tr>
                 </thead>
@@ -129,7 +155,16 @@ function Utili(){
             <td>{user.telephone}</td>
             <td>{user.date_naissance}</td>
             <td>{user.groupe_id}</td>
-            <td>{nomgroupe}</td>
+            <td>
+              <div className='d-flex justify-content-center'>
+                <form onSubmit={handledeleteform}>
+                     <button className='btn btn-info' >edit</button><button className='btn btn-danger' onClick={() => handledelete(user.id_stagaire)}>delete</button>
+                     <input type="hidden" value={user.id_stagaire} name='id' />
+                </form>
+               
+              </div>
+              </td>
+
            </tr>
 
            );
