@@ -10,6 +10,14 @@ function Utili(){
     const [groupid,setgroupid] = useState()
     const [nomgroupe,setnomgroup] = useState()
     const navigate = useNavigate()
+    const loadstagires = () => {
+      fetch('http://localhost:8000/list-stagaire.php')
+      .then(res => res.json())
+      .then(data => setNom(data))
+    }
+    useEffect(() => {
+      loadstagires()
+    },[])
     const handledeleteform = (e) => {
       e.preventDefault();
       
@@ -29,7 +37,9 @@ function Utili(){
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      // you can also update your state here to remove the deleted user from UI
+        fetch('http://localhost:8000/list-stagaire.php')
+        .then(res => res.json())
+        .then(data => setNom(data));
     })
     .catch((err) => {
       console.error("Error deleting:", err);
@@ -51,9 +61,11 @@ function Utili(){
 })
     })
     .then(res => res.json())
-    .then(data => {console.log(data)
-      navigate('dashboard')
-    })
+    .then(data =>{
+      console.log(data.message)
+      loadstagires()
+    } )
+   
 }
     
    useEffect(() => {
@@ -83,8 +95,9 @@ function Utili(){
  
     return(
         <>
-        <h1>Stagaires</h1>
-        <button className='btn btn-add btn-primary'data-bs-toggle="modal" data-bs-target="#formModal">Add Stagaire</button>
+        <h1 className='text-center fw-bold'>Gestion Des Stagaires</h1>
+        <p className='text-center text-muted'>Gerez et Suivre les informations des Stagaires</p>
+        <button className='btn btn-add btn-primary'data-bs-toggle="modal" data-bs-target="#formModal"> <i class="bi bi-plus"></i>Add Stagaire</button>
          {/* MODAL */}
         <div className="modal fade" id="formModal" tabIndex="-1">
           <div className="modal-dialog">
@@ -122,7 +135,7 @@ function Utili(){
                     
                   </div>
 
-                  <button type="submit" className="btn btn-success w-100" >
+                  <button type="submit" className="btn btn-success w-100" data-bs-dismiss="modal"  >
                     Enregistrer
                   </button>
                 </form>
@@ -136,7 +149,7 @@ function Utili(){
         <table className='table'>
 
              <thead>
-                    <tr>
+                    <tr className='table-secondary'>
                         <th scope="col">ID Stagaire</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Telephone</th>
@@ -156,9 +169,10 @@ function Utili(){
             <td>{user.date_naissance}</td>
             <td>{user.groupe_id}</td>
             <td>
-              <div className='d-flex justify-content-center'>
+              <div className='d-flex justify-content-center gap-3'>
                 <form onSubmit={handledeleteform}>
-                     <button className='btn btn-info' >edit</button><button className='btn btn-danger' onClick={() => handledelete(user.id_stagaire)}>delete</button>
+                     <button className='btn btn-info' ><i className="bi bi-pencil"></i></button> &nbsp;
+                     <button className='btn btn-danger' onClick={() => handledelete(user.id_stagaire)}><i className="bi bi-trash"></i></button>
                      <input type="hidden" value={user.id_stagaire} name='id' />
                 </form>
                

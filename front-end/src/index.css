@@ -83,15 +83,18 @@ body {
   box-shadow: 0 12px 30px rgba(98,98,226,0.18);
 }
 .stagaires {
-  border: 2px solid black;
+  border: 2px solid transparent;
   
+}
+thead tr {
+  height: 50px;
 }
 .utili {
   margin-top: 100px;
   
 }
 .btn-add {
-  margin-left: 430px ;
+  margin-left: 900px ;
 }
 @media (max-width: 900px) {
   .sidebar {

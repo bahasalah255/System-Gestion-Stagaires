@@ -33,7 +33,7 @@ function Dashboard() {
   return (
     <>
     <div className='row gx-0'>
-        <div className='col-lg-6 col-md-6 col-sm-12'>
+        <div className='col-lg-3 col-md-4 col-sm-12'>
       <div className='sidebar'>
         <div className='back'>
         <h4 className='text-center mt-3'>Admin Panel</h4>
@@ -67,11 +67,10 @@ function Dashboard() {
         </div>
       </div>
       </div>
-      <div className='col-lg-6 col-md-6 col-sm-12'>
+      <div className='col-lg-9 col-md-8 col-sm-12'>
       <div className="">
          <div className="p-4">
           <Outlet />
-          <p>v</p>
         </div>
     </div>
     </div>

@@ -25,3 +25,7 @@ $stmt->execute([
     $date,
     $groupeid
 ]);
+echo json_encode([
+    'status' => '200',
+    'message' => 'user adedd'
+]);
