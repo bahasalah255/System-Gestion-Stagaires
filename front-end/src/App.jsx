@@ -8,6 +8,8 @@ import Dashforma from './Dashforma.jsx'
 import Dashstagaire from './Dashstagaire.jsx'
 import Utili from './Utili.jsx'
 import Home from './Home.jsx'
+import Formateur from './Formateur.jsx'
+import Groupe from './Groupe.jsx'
 function App() {
   
   
@@ -19,6 +21,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} >
           <Route path='utilisateurs' element={<Utili/>}/>
           <Route path='home' element={<Home/>}/>
+          <Route path='formateur' element={<Formateur/>}/>
+          <Route path='groupe' element={<Groupe/>}/>
         </Route>
         <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard-formateur' element={<Dashforma/>}/>

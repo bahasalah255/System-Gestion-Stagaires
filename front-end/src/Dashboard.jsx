@@ -48,10 +48,10 @@ function Dashboard() {
                  <i className="bi bi-people me-2"></i>
     Stagiaires
               </NavLink>
-              <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
+              <NavLink to='/dashboard/formateur' style={linkStyle}>
               <i className="bi bi-person-workspace"></i> Formateurs
               </NavLink>
-              <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
+              <NavLink to='/dashboard/groupe' style={linkStyle}>
               <i className="bi bi-collection"></i> Groupes
               </NavLink>
                <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
