@@ -108,3 +108,9 @@ thead tr {
     border-radius: 10px;
   }
 }
+.card {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 5px 20px 10px rgba(192, 191, 191, 0.6);
+  
+}

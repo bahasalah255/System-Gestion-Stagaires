@@ -41,7 +41,7 @@ function Dashboard() {
         <hr />
         <div className='elements'>
             <ul className='links'>
-              <NavLink to='/dashboard' end style={linkStyle}>
+              <NavLink to='/dashboard/home' end style={linkStyle}>
                  <i className="bi bi-speedometer2"></i> Home
               </NavLink>
               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
@@ -70,6 +70,7 @@ function Dashboard() {
       <div className='col-lg-9 col-md-8 col-sm-12'>
       <div className="">
          <div className="p-4">
+          
           <Outlet />
         </div>
     </div>

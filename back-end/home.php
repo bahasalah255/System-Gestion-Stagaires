@@ -1,0 +1,26 @@
+<?php
+include 'connexion.php';
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json");
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+$stmt = $connexion->prepare('select count(id_stagaire) as counter from stagaire');
+$stmt->execute([]);
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
+$stm = $connexion->prepare('select count(id_group) as grouper from groupe');
+$stm->execute([]);
+$data += $stm->fetch(PDO::FETCH_ASSOC);
+$st = $connexion->prepare('select count(id_formateur) as formateur1 from formateur');
+$st->execute([]);
+$data += $st->fetch(PDO::FETCH_ASSOC);
+$s = $connexion->prepare('select count(id_module) as module1 from module');
+$s->execute([]);
+$data += $s->fetch(PDO::FETCH_ASSOC);
+echo json_encode($data);
+
+
+?>

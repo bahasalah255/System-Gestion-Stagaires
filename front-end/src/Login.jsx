@@ -30,7 +30,7 @@ function Login() {
       if (data.status === "ok" && data.user.role === 'admin') {
             localStorage.setItem('user',JSON.stringify(data.user))
             setMessage("Connexion réussie !");
-            navigate('/dashboard');
+            navigate('/dashboard/home');
         }
         
          else if(data.status === "ok" && data.user.role === 'formateur') {
