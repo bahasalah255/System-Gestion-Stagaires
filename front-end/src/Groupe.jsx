@@ -83,8 +83,8 @@ function Groupe(){
                     <label className="form-label">Annee Formation</label>
                     <select className="form-select" name="formation" onChange={(e) => setannee(e.target.value)}>
                          <option value="">-- Choisir une spécialité --</option>
-                            <option value="1ere">1ere annee</option>
-                            <option value="2eme">2eme annee</option>
+                            <option value="1ere annee">1ere annee</option>
+                            <option value="2eme aneee">2eme annee</option>
                     </select>
                   </div>
 

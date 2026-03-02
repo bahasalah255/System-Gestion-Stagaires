@@ -1,4 +1,8 @@
 import React,{useState, useEffect} from 'react'
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  PieChart, Pie, Cell, ResponsiveContainer
+} from 'recharts';
 
 function Home(){
 const [user,setUser] = useState('');
@@ -6,6 +10,30 @@ const [stagaires,setStagaires] = useState(null)
 const [formateurs,setformateurs] = useState(null)
 const [groupes,setGroupes] = useState(null)
 const [modules,setModels] = useState(null)
+const [data,setdata] = useState([]);
+const [datach,setdatacha] = useState();
+useEffect(() => {
+    fetch('http://localhost:8000/count_groupes.php')
+    .then(res => res.json())
+    .then(data => {
+        setdata(data)
+    })
+},[])
+useEffect(() => {
+    const list = 
+        Object.entries(data).map(([key,value]) => ({
+            Groupe : key,  
+            stagairescount : value
+        }))
+    const chardata = list.map(item => ({
+        groupe : item.Groupe,
+        stagaires : item.stagairescount
+    }))
+    setdatacha(chardata)
+    list.map(l => {
+        console.log(l)
+    })
+},[data])
 useEffect(() => {
     const us = JSON.parse(localStorage.getItem('user'))
     setUser(us.nom)
@@ -63,6 +91,32 @@ return(
             </div>
         </div>
     </div>
+  
+    <div className="container p-4">
+
+
+  {/* Charts row */}
+  <div className="row">
+    <div className="col-lg-6 col-md-12">
+            { (
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={datach} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="groupe" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="stagaires" fill="#0088FE" name="Stagaires" />
+                  
+                </BarChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+    <div className="col-lg-6 col-md-12">
+      {data.length > 0 && <PieChart data={data} />}
+    </div>
+  </div>
+</div>
     </>
 )
 }
