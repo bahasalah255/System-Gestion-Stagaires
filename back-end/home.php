@@ -20,6 +20,9 @@ $data += $st->fetch(PDO::FETCH_ASSOC);
 $s = $connexion->prepare('select count(id_module) as module1 from module');
 $s->execute([]);
 $data += $s->fetch(PDO::FETCH_ASSOC);
+$ftp = $connexion->prepare('select count(id_filiere) as counter2 from filiere');
+$ftp->execute([]);
+$data += $ftp->fetch(PDO::FETCH_ASSOC);
 echo json_encode($data);
 
 

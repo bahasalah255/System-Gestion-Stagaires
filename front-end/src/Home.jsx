@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  PieChart, Pie, Cell, ResponsiveContainer
+  PieChart, Pie, Cell, ResponsiveContainer,RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
 } from 'recharts';
 
 function Home(){
@@ -11,12 +11,23 @@ const [formateurs,setformateurs] = useState(null)
 const [groupes,setGroupes] = useState(null)
 const [modules,setModels] = useState(null)
 const [data,setdata] = useState([]);
+const [datas,setdatas] = useState([]);
 const [datach,setdatacha] = useState();
+const [datacount,setdatacount] = useState();
+const [filieres,setfiliere] = useState(null);
 useEffect(() => {
     fetch('http://localhost:8000/count_groupes.php')
     .then(res => res.json())
     .then(data => {
         setdata(data)
+    })
+},[])
+useEffect(() => {
+     fetch('http://localhost:8000/count_stagaires.php')
+    .then(res => res.json())
+    .then(data => {
+        setdatas(data)
+        console.log('stagaires',data)
     })
 },[])
 useEffect(() => {
@@ -35,6 +46,21 @@ useEffect(() => {
     })
 },[data])
 useEffect(() => {
+    const list = 
+        Object.entries(datas).map(([key,value]) => ({
+            Filiere : key,  
+            stagairescount : value
+        }))
+    const charcount = list.map(item => ({
+        filiere : item.Filiere,
+        stagaires : item.stagairescount
+    }))
+    setdatacount(charcount)
+    list.map(l => {
+        console.log(l)
+    })
+},[datas])
+useEffect(() => {
     const us = JSON.parse(localStorage.getItem('user'))
     setUser(us.nom)
 },[])
@@ -46,6 +72,7 @@ useEffect(() => {
         setGroupes(data.grouper)
         setformateurs(data.formateur1)
         setModels(data.module1)
+        setfiliere(data.counter2)
     })
     
 },[])
@@ -53,7 +80,7 @@ useEffect(() => {
 return(
     <>
     <h1 className="fw-bold"> 👋 Welcome {user}</h1>
-    <div className="row p-5">
+    <div className="row p-5 g-3">
         <div className="col-lg-3 col-md-6 col-sm-12">
             <div className="card">
                 <div className="card-body">
@@ -90,6 +117,15 @@ return(
                 </div>
             </div>
         </div>
+     <div className="col-lg-3 col-md-6 col-sm-12">
+            <div className="card">
+                <div className="card-body">
+                    <i className="bi bi-mortarboard text-success fs-1"></i>
+                    <h4>Nos Filiers</h4>
+                     <p className="text-center fs-2">{filieres}</p>
+                </div>
+            </div>
+        </div>
     </div>
   
     <div className="container p-4">
@@ -115,9 +151,27 @@ return(
             )}
           </div>
     <div className="col-lg-6 col-md-12">
-     <div className="col-lg-6 col-md-12">
-         
-          </div>
+    <div style={{ background: "#fff", borderRadius: 12, padding: 20, boxShadow: "0 2px 8px #0001" }}>
+          <h5 style={{ marginBottom: 12 }}>🕸️ Stagaires par Filiere (Radar)</h5>
+          {(
+            <ResponsiveContainer width="100%" height={300}>
+              <RadarChart data={datacount}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="filiere" />
+                <PolarRadiusAxis angle={30} domain={[0, 30]} />
+                <Radar
+                  name="Stagaires"
+                  dataKey="stagaires"
+                  stroke="#8884d8"
+                  fill="#8884d8"
+                  fillOpacity={0.5}
+                />
+                <Legend />
+                <Tooltip />
+              </RadarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
     </div>
   </div>
 </div>
