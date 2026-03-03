@@ -14,16 +14,18 @@ $nom = $data['nom'];
 $telephone = $data['telephone'];
 $date = $data['date_naissance'];
 $groupeid = $data['groupe_id'];
+$filiere = $data['filiere'];
 $stmt = $connexion->prepare("
-    INSERT INTO stagaire (nom,telephone, date_naissance, groupe_id) 
-    VALUES (?, ?, ?,?)
+    INSERT INTO stagaire (nom,telephone, date_naissance, groupe_id,filiere) 
+    VALUES (?, ?, ?,?,?)
 ");
 
 $stmt->execute([
     $nom,
     $telephone,
     $date,
-    $groupeid
+    $groupeid,
+    $filiere
 ]);
 echo json_encode([
     'status' => '200',

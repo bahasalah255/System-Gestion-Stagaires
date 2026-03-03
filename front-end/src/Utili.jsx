@@ -10,6 +10,15 @@ function Utili(){
     const [groupid,setgroupid] = useState('')
     const [nomgroupe,setnomgroup] = useState('')
     const [editId,setID] = useState(null)
+    const [filiere,setfiliere] = useState('');
+    const [fili,setfi] = useState('')
+    useEffect(() => {
+      fetch('http://localhost:8000/filiere.php')
+      .then(res => res.json())
+      .then(data => {setfiliere(data)
+        console.log(data)
+      })
+    },[])
     const navigate = useNavigate()
     const loadstagires = () => {
       fetch('http://localhost:8000/list-stagaire.php')
@@ -87,7 +96,8 @@ function Utili(){
   nom: stnom,
   telephone: telephone,
   date_naissance: date,
-  groupe_id: groupid
+  groupe_id: groupid,
+  filiere : fili
 })
     })
     .then(res => res.json())
@@ -175,15 +185,28 @@ loadstagires()})
                     <input type="date" className="form-control" name='date' value={date} onChange={(e) => setdate(e.target.value)}/>
                   </div>
                    <div className="mb-3">
-                    <label className="form-label">Group ID</label>
+                    <label className="form-label">Group </label>
                     <select name='groupid' className='form-select' onChange={(e) => setgroupid(e.target.value)}>
+                      <option value="">------ Choisir Un groupe ------</option>
                         {group.map(g => (
     <option key={g.id_group} value={g.id_group}>
-      {g.id_group}
+      {g.nom_group}
     </option>
   ))}
                     </select>
-                    
+                    <div className='mb-3'>
+                    <label className='form-label'> Filiere </label>
+                      <select name="filiere"  className='form-select' onChange={(e) => setfi(e.target.value)}>
+                        <option value="">------ Choisir Une Filiere ------</option>
+                        {filiere && filiere.map(f => {
+                          return (
+                            <>
+                            <option value={f.id_filiere} key={f.id_filiere}>{f.nom}</option>
+                            </>
+                          );
+                        })}
+                      </select>
+                    </div>
                   </div>
 
                   <button type="submit" className="btn btn-success w-100" data-bs-dismiss="modal"  >
@@ -205,7 +228,8 @@ loadstagires()})
                         <th scope="col">Nom</th>
                         <th scope="col">Telephone</th>
                         <th scope="col">Date de naissance</th>
-                        <th scope="col">Group ID</th>
+                        <th scope="col">Groupe</th>
+                        <th scope='col'>Filiere</th>
                         <th scope="col">Actions</th>
                         
                     </tr>
@@ -218,7 +242,8 @@ loadstagires()})
             <td>{user.nom}</td>
             <td>{user.telephone}</td>
             <td>{user.date_naissance}</td>
-            <td>{user.groupe_id}</td>
+            <td>{user.groupe}</td>
+            <td>{user.filiere}</td>
             <td>
               <div className='d-flex justify-content-center gap-3'>
                 
@@ -253,6 +278,7 @@ loadstagires()})
                    <div className="mb-3">
                     <label className="form-label">Group ID</label>
                     <select name='groupid' className='form-select' value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                     <option value="">------ Choose Value ------</option>
                         {group.map(g => (
     <option key={g.id_group} value={g.id_group}>
       {g.id_group}

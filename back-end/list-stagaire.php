@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-$stmt = $connexion->prepare("SELECT * FROM stagaire");
+$stmt = $connexion->prepare("SELECT c.id_stagaire,c.nom,c.telephone,c.date_naissance,g.nom_group AS groupe,f.nom AS filiere FROM stagaire c INNER JOIN filiere f on c.filiere = f.id_filiere
+INNER JOIN groupe g on c.groupe_id = g.id_group");
 $stmt->execute();
 $stagiaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($stagiaires);
