@@ -98,22 +98,26 @@ return(
   {/* Charts row */}
   <div className="row">
     <div className="col-lg-6 col-md-12">
+        <h5 className="text-center mb-3">Stagiaires par Groupe</h5>
             { (
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={datach} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="groupe" />
+                  <XAxis dataKey="groupe" 
+                  tick={{ fill: "#333", fontSize: 14 }}/>
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="stagaires" fill="#0088FE" name="Stagaires" />
+                  <Bar dataKey="stagaires" fill="#0088FE" name="Stagaires" label={{position : "top"}} animationDuration={1500} />
                   
                 </BarChart>
               </ResponsiveContainer>
             )}
           </div>
     <div className="col-lg-6 col-md-12">
-      {data.length > 0 && <PieChart data={data} />}
+     <div className="col-lg-6 col-md-12">
+         
+          </div>
     </div>
   </div>
 </div>

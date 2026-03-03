@@ -10,6 +10,7 @@ import Utili from './Utili.jsx'
 import Home from './Home.jsx'
 import Formateur from './Formateur.jsx'
 import Groupe from './Groupe.jsx'
+import Filiere from './Filiere.jsx'
 function App() {
   
   
@@ -23,6 +24,7 @@ function App() {
           <Route path='home' element={<Home/>}/>
           <Route path='formateur' element={<Formateur/>}/>
           <Route path='groupe' element={<Groupe/>}/>
+          <Route path='filieres' element={<Filiere/>}/>
         </Route>
         <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard-formateur' element={<Dashforma/>}/>
