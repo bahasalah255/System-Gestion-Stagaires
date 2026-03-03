@@ -8,7 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-$stmt = $connexion->prepare('SELECT c.id_group,c.nom_group,c.annee_formation, f.nom AS filiere  from groupe c INNER JOIN filiere f on c.id_filiere = f.id_filiere');
-$stmt->execute();
-$groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-echo json_encode($groupes);
+
+$data = json_decode(file_get_contents("php://input"), true);
+$id = $data['id'];
+$stmt = $connexion->prepare('SELECT * FROM groupe where id_group = ?');
+$stmt->execute([$id]);
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
+echo json_encode($data)
+
+
+
+?>

@@ -120,7 +120,8 @@ const handleEditform = (e) => {
   nom: stnom,
   telephone: telephone,
   date_naissance: date,
-  groupe_id: groupid
+  groupe_id: groupid,
+  filiere : fili
 })
   }
 )
@@ -249,7 +250,16 @@ loadstagires()})
                 
                      <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#editmodal" onClick={(e) => handleEditSubmit(e,user.id_stagaire)}><i className="bi bi-pencil"></i></button> &nbsp;
                      <button className='btn btn-danger' onClick={() => handledelete(user.id_stagaire)}><i className="bi bi-trash"></i></button>
-                     
+              </div>
+              </td>
+              </tr>
+
+           );
+        })}
+        </tbody>
+        </table>
+        </div>
+        </div>
                      {/* MODEL EDIT */}
                      <div className="modal fade" id="editmodal" tabIndex="-1">
           <div className="modal-dialog">
@@ -276,17 +286,31 @@ loadstagires()})
                     <input type="date" className="form-control" name='date' value={date} onChange={(e) => setdate(e.target.value)}/>
                   </div>
                    <div className="mb-3">
-                    <label className="form-label">Group ID</label>
+                    <label className="form-label">Group</label>
                     <select name='groupid' className='form-select' value={groupid} onChange={(e) => setgroupid(e.target.value)}>
                      <option value="">------ Choose Value ------</option>
                         {group.map(g => (
     <option key={g.id_group} value={g.id_group}>
-      {g.id_group}
+      {g.nom_group}
     </option>
   ))}
                     </select>
+                     <div className='mb-3'>
+                    <label className='form-label'> Filiere </label>
+                      <select name="filiere"  className='form-select' value={fili} onChange={(e) => setfi(e.target.value)}>
+                        <option value="">------ Choisir Une Filiere ------</option>
+                        {filiere && filiere.map(f => {
+                          return (
+                            <>
+                            <option value={f.id_filiere} key={f.id_filiere}>{f.nom}</option>
+                            </>
+                          );
+                        })}
+                      </select>
+                    </div>
                     
                   </div>
+                  
 
                   <button type="submit" className="btn btn-success w-100" data-bs-dismiss="modal"  onClick={() => handleEditform}>
                     Enregistrer
@@ -299,17 +323,7 @@ loadstagires()})
         </div>
                
                
-              </div>
-              </td>
-
-           </tr>
-
-           );
-        })}
-        </tbody>
-        </table>
-        </div>
-        </div>
+              
         </>
     );
 }
