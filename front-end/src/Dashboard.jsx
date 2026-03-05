@@ -57,7 +57,7 @@ function Dashboard() {
               <NavLink to='/dashboard/filieres' style={linkStyle}>
               <i className="bi bi-pc-display"></i> Filières
               </NavLink>
-               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
+               <NavLink to='/dashboard/modules' style={linkStyle}>
                  <i className="bi bi-book"></i> Modules
               </NavLink>
                <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
