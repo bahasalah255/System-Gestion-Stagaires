@@ -1,11 +1,11 @@
 
-# 🎓 System-Gestion-Stagaires
+# System-Gestion-Stagaires
 
 A web application for managing trainees (stagiaires) at OFPPT, built with **React** (frontend) and **PHP** (backend API).
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 System-Gestion-Stagaires/
@@ -31,7 +31,7 @@ System-Gestion-Stagaires/
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer     | Technology        |
 |-----------|-------------------|
@@ -42,7 +42,7 @@ System-Gestion-Stagaires/
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 ### Prerequisites
 
@@ -112,7 +112,7 @@ The React app will be available at `http://localhost:5173`
 
 ---
 
-## 🔗 API Endpoints
+##  API Endpoints
 
 | Method | Endpoint            | Description          |
 |--------|---------------------|----------------------|
@@ -124,12 +124,12 @@ The React app will be available at `http://localhost:5173`
 
 ---
 
-## 🔒 Security Note
+##  Security Note
 
 The `connexion.php` file is excluded from the repository via `.gitignore` to protect database credentials. Always create it manually on each environment.
 
 ---
 
-## 👤 Author
+##  Author
 
 **Salah Baha** — [@bahasalah255](https://github.com/bahasalah255)
