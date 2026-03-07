@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 $data = json_decode(file_get_contents("php://input"), true);
-$nom = $data['nom'];
-$filiere = $data['filiere'];
-$coeficient = $data['coeficient'];
-$masse = $data['masse'];
-$stmt = $connexion->prepare('INSERT INTO module (nom_module,coeficient,id_filiere,masse_horaire) values(?,?,?,?)');
-$stmt->execute([$nom,$coeficient,$filiere,$masse]);
-echo json_encode(['message'=> "$nom added avec success"]);
-?>
+$id = $data['id'];
+$stmt = $connexion->prepare('DELETE FROM module where id_module= ?');
+if ($stmt->execute([$id])) {
+    echo json_encode(['success' => true, 'message' => 'Module deleted']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Failed to delete Module']);
+}
+

@@ -6,6 +6,28 @@ function Module(){
     const [masse,setmasse] = useState('');
     const [filieredata,setfilieredata] = useState('');
     const [data,setdata] = useState('');
+    const [message,setmessage] = useState('');
+    const handledelete = (id) => {
+        fetch('http://localhost:8000/delete_module.php',{
+            method: "POST",
+            headers : {
+                   'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+                id: id
+            })
+        }
+    )
+    .then(res => res.json())
+    .then(data => {
+        loadmodule()
+        console.log(data.message)
+        setmessage(data.message)
+        setTimeout(() => {
+                setmessage('')
+            }, 3000);
+    })
+    }
     useEffect(() => {
         fetch('http://localhost:8000/module.php')
         .then(res => res.json())
@@ -16,7 +38,8 @@ function Module(){
         .then(res => res.json())
         .then(data =>setdata(data))
     }
-    const handlAdd = () => {
+    const handlAdd = (e) => {
+         e.preventDefault()
         fetch('http://localhost:8000/add_module.php',{
             method : 'POST',
             headers : {
@@ -30,10 +53,14 @@ function Module(){
             })
         })
         .then(res => res.json())
-        .then(data => {
-            console.log('adedd')
+        .then(dataf => {
             loadmodule()
+            setmessage(dataf.message)
+            setTimeout(() => {
+                setmessage('')
+            }, 3000);
         })
+        .catch(err => console.error('Erreur:', err))
     }
      useEffect(() => {
             fetch('http://localhost:8000/filiere.php')
@@ -41,7 +68,7 @@ function Module(){
             .then(data => {setfilieredata(data)
                 console.log(data)
             })
-        },[])
+        },[filiere])
 
     return(
         <>
@@ -103,7 +130,11 @@ function Module(){
           </div>
         </div>
 {/* finit MODAL module */}
+
  <div className='utili'>
+    {message && (
+        <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
+    )} 
         <div className='stagaires'>
         <table className='table'>
 
@@ -131,7 +162,12 @@ function Module(){
                         <td>
                             <div className='d-flex justify-content-center gap-3'>
                             <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#EditGroupeModal" onClick={(e) => Editsub(e,d.id_group)}> <i className="bi bi-pencil me-1"></i></button>
-                            <button className='btn btn-danger' onClick={() => handledelete(d.id_group)}><i className="bi bi-trash me-1"></i></button>
+                            <button className='btn btn-danger' onClick={() => {
+                                const x = window.prompt('Type Yes or Oui if You Want to Delete');
+                                if(x.toLowerCase() == "oui"  || x.toLowerCase() == 'yes'){
+                                    handledelete(d.id_module)
+                                }
+                            }}><i className="bi bi-trash me-1"></i></button>
                             </div>
                             
                         </td>

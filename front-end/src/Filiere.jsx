@@ -8,7 +8,7 @@ function Filiere(){
         fetch('http://localhost:8000/filiere.php')
         .then(res => res.json())
         .then(data => setData(data))
-    })
+    },[])
     const handleEditform = (e) => {
   e.preventDefault();
   
