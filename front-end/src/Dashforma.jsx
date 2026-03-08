@@ -6,14 +6,27 @@ function Dashforma(){
 
   useEffect(() => {
     // Récupère les données du localStorage
-    const userData = localStorage.getItem('user')
+    const userData = localStorage.getItem('user');
+    
     
     if (!userData) {
       // Si pas connecté, redirige vers login
       navigate('/')
     } else {
-      
-      setUser(JSON.parse(userData))
+      /*
+      if(role != "formateur" || role != "admin"){
+        navigate("/")
+      }
+        */
+       if(userData){
+        const user = JSON.parse(userData);
+        if(user.role != "formateur" && user.role != "admin"){
+          navigate("/")
+        }
+        else {
+             setUser(JSON.parse(userData))
+        }
+       }
     }
   }, [])
 

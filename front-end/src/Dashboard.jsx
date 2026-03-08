@@ -3,17 +3,30 @@ import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
 
 function Dashboard() {
   const [user, setUser] = useState(null)
+  const [role, setrole] = useState(null)
+  const [isopen,setisopen] = useState(true);
   const navigate = useNavigate()
 
+  const toggleSidebar = () => setisopen(!isopen);
   useEffect(() => {
     // Récupère les données du localStorage
     const userData = localStorage.getItem('user')
+   
     
     if (!userData) {
       // Si pas connecté, redirige vers login
       navigate('/')
     } else {
+         
+       if(userData){
+        const user = JSON.parse(userData);
+        if(user.role != "admin"){
+          navigate("/")
+        }
+       }
       setUser(JSON.parse(userData))
+      
+      
     }
   }, [navigate])
 
@@ -22,7 +35,7 @@ function Dashboard() {
     navigate('/')
   }
   const linkStyle = ({ isActive }) => ({
-    backgroundColor: isActive ? '#0d6efd' : 'black',
+    backgroundColor: isActive ? '#4F46E5' : '#1E293B',
     borderRadius: '8px',
     padding: '10px 15px',
     display: 'block',
@@ -33,38 +46,42 @@ function Dashboard() {
   return (
     <>
     <div className='row gx-0'>
-        <div className='col-lg-3 col-md-4 col-sm-12'>
-      <div className='sidebar'>
-        <div className='back'>
-        <h4 className='text-center mt-3'>Admin Panel</h4>
+        <div className={`col-lg-${ isopen ? 3 : 1} col-md-${isopen ? 4 : 1} col-sm-12`}>
+      <div className='sidebar' style={{width : isopen ? '100%' : '95px' , transition : '0.3s'}}>
+        <div className='back d-flex justify-content-between px-1'>
+        <h4 className='text-center mt-3' style={{ display : isopen ? 'block' : 'none',  width: isopen ? 'auto' : '0px',
+        }}>Admin Panel</h4>
+         <button className="btn bg-transparent " onClick={toggleSidebar}>
+             <i className={`${isopen ? 'bi bi-list' : 'bi bi-list'} fs-5`}></i>
+            </button>
         </div>
         <hr />
         <div className='elements'>
             <ul className='links'>
               <NavLink to='/dashboard/home' end style={linkStyle}>
-                 <i className="bi bi-speedometer2"></i> Home
+                 <i className="bi bi-speedometer2 fs-4"></i>  {isopen && 'Home'}
               </NavLink>
               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
-                 <i className="bi bi-people me-2"></i>
-    Stagiaires
+                 <i className="bi bi-people me-2 fs-4"></i>
+     {isopen && "Stagiaires"}
               </NavLink>
               <NavLink to='/dashboard/formateur' style={linkStyle}>
-              <i className="bi bi-person-workspace"></i> Formateurs
+              <i className="bi bi-person-workspace fs-4"></i> {isopen && "Formateurs"}
               </NavLink>
               <NavLink to='/dashboard/groupe' style={linkStyle}>
-              <i className="bi bi-collection"></i> Groupes
+              <i className="bi bi-collection fs-4"></i> {isopen && "Groupes"}
               </NavLink>
               <NavLink to='/dashboard/filieres' style={linkStyle}>
-              <i className="bi bi-pc-display"></i> Filières
+              <i className="bi bi-pc-display fs-4"></i> {isopen && "Filières"}
               </NavLink>
                <NavLink to='/dashboard/modules' style={linkStyle}>
-                 <i className="bi bi-book"></i> Modules
+                 <i className="bi bi-book fs-4"></i> {isopen && "Modules"}
               </NavLink>
                <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
-                 <i className="bi bi-file-earmark-text"></i> Notes
+                 <i className="bi bi-file-earmark-text fs-4"></i> {isopen && "Notes"}
               </NavLink>
                 <button className="btn btn-danger" onClick={handleLogout}>
-            Se déconnecter
+            <i className="bi bi-box-arrow-right me-2 fs-4"></i> {isopen && "Se déconnecter"}
           </button>
             </ul>
         </div>

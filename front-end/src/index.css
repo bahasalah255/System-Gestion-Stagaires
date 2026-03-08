@@ -61,10 +61,15 @@ body {
   border-radius: 8px;
   transition: background-color .15s ease, transform .12s ease;
 }
-
+.bi-list {
+  background: #3B82F6;
+border-radius: 8px;
+padding: 6px;
+}
 .links li a:hover {
   background: rgba(98,98,226,0.06);
   transform: translateY(-2px);
+  background-color: #3730A3;
 }
 
 .back {
@@ -72,7 +77,7 @@ body {
   border: none;
   border-radius: 8px;
   color: #fff;
-  padding: 10px 14px;
+  padding: 10px 25px;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(98,98,226,0.14);
   transition: transform .12s ease, box-shadow .12s ease;
