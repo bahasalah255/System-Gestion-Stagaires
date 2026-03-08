@@ -8,12 +8,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+
 $data = json_decode(file_get_contents("php://input"), true);
 $formateur = $data['formateur'];
 $groupe = $data['groupe'];
 $module = $data['module'];
 $annee = $data['annee'];
-$stmt = $connexion->prepare('INSERT INTO afectation (id_formateur,id_groupe,id_module,annee) values(?,?,?,?)');
-$stmt->execute([$formateur,$groupe,$module,$annee]);
-echo json_encode(['message'=> " Affectation added avec success"]);
+$id = $data['id'];
+$stmt = $connexion->prepare( 'UPDATE afectation
+     SET id_formateur = ?, id_groupe = ?,
+     id_module = ?,annee = ?
+     WHERE id= ?');
+$stmt->execute([
+  $formateur , $groupe, $module  , $annee , $id
+]);
+echo json_encode(["message" => "Modifie Avec success" ]);
+
+
+
 ?>

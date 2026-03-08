@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 $data = json_decode(file_get_contents("php://input"), true);
-$formateur = $data['formateur'];
-$groupe = $data['groupe'];
-$module = $data['module'];
-$annee = $data['annee'];
-$stmt = $connexion->prepare('INSERT INTO afectation (id_formateur,id_groupe,id_module,annee) values(?,?,?,?)');
-$stmt->execute([$formateur,$groupe,$module,$annee]);
-echo json_encode(['message'=> " Affectation added avec success"]);
-?>
+$id = $data['id'];
+$stmt = $connexion->prepare('DELETE FROM afectation where id= ?');
+if ($stmt->execute([$id])) {
+    echo json_encode(['success' => true, 'message' => 'Affectation deleted']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Failed to delete Affectation']);
+}
+
