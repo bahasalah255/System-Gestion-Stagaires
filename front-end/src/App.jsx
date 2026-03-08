@@ -12,6 +12,13 @@ import Formateur from './Formateur.jsx'
 import Groupe from './Groupe.jsx'
 import Filiere from './Filiere.jsx'
 import Module from './Module.jsx'
+import HomeFormateur from './formateur/HomeFormateur.jsx'
+import GroupeForma from './formateur/GroupeForma.jsx'
+import ModuleForma from './formateur/ModuleForma.jsx'
+import NotesForma from './formateur/NotesForma.jsx'
+import ParaForma from './formateur/ParaForma.jsx'
+import Affectation from './Affectation.jsx'
+
 function App() {
   
   
@@ -27,9 +34,16 @@ function App() {
           <Route path='groupe' element={<Groupe/>}/>
           <Route path='filieres' element={<Filiere/>}/>
           <Route path='modules' element={<Module/>}/>
+          <Route path='affectation' element={<Affectation/>}/>
         </Route>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/dashboard-formateur' element={<Dashforma/>}/>
+        <Route path='/dashboard-formateur' element={<Dashforma/>}>
+                  <Route path='home' element={<HomeFormateur/>}/>
+                  <Route path='groupes' element={<GroupeForma/>}/>
+                  <Route path='modules' element={<ModuleForma/>}/>
+                  <Route path='notes' element={<NotesForma/>}/>
+                  <Route path='parametres' element={<ParaForma/>}/>
+        </Route>
         <Route path='/dashboard-stagaire' element={<Dashstagaire/>}/>
       </Routes>
     </BrowserRouter>

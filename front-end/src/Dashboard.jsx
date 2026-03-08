@@ -71,6 +71,9 @@ function Dashboard() {
               <NavLink to='/dashboard/groupe' style={linkStyle}>
               <i className="bi bi-collection fs-4"></i> {isopen && "Groupes"}
               </NavLink>
+               <NavLink to='/dashboard/affectation' style={linkStyle}>
+              <i className="bi bi-person-check fs-4"></i> {isopen && "Affectations"}
+              </NavLink>
               <NavLink to='/dashboard/filieres' style={linkStyle}>
               <i className="bi bi-pc-display fs-4"></i> {isopen && "Filières"}
               </NavLink>
