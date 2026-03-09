@@ -79,7 +79,8 @@ useEffect(() => {
 
 return(
     <>
-    <h1 className="fw-bold"> 👋 Welcome {user}</h1>
+    <h1 className="fw-bold"> 👋 Welcome {user} !</h1>
+    <p className='text-muted mx-5 fs-5'>Voici un apercu de votre tableau de bord</p>
     <div className="row p-5 g-3">
         <div className="col-lg-3 col-md-6 col-sm-12">
             <div className="card">

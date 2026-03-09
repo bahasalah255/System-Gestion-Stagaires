@@ -1,7 +1,53 @@
+import React,{useState, useEffect} from 'react';
 function HomeFormateur(){
+    const [user, setUser] = useState('');
+    useEffect(() => {
+        const us = JSON.parse(localStorage.getItem('user'))
+        setUser(us.nom)
+    },[])
     return(
         <>
-        <h1>test</h1>
+        <h1 className="fw-bold"> 👋 Welcome {user} !</h1>
+    <p className='text-muted mx-5 fs-5'>Voici un apercu de votre tableau de bord</p>
+    <div className="row p-5 g-3">
+        <div className="col-lg-3 col-md-6 col-sm-12">
+            <div className="card">
+                <div className="card-body">
+                   <i className="bi bi-person-lines-fill text-primary fs-1"></i>
+                   <h4>Vos stagiaires</h4>
+                   <p className="text-center fs-2">0</p>
+                </div>
+            </div>
+        </div>
+    <div className="col-lg-3 col-md-6 col-sm-12">
+            <div className="card">
+                <div className="card-body">
+                    <i className="bi bi-person-workspace text-secondary fs-1"></i>
+                    <h4>Vos Filieres</h4>
+                     <p className="text-center fs-2">0</p>
+                </div>
+            </div>
+        </div>
+    <div className="col-lg-3 col-md-6 col-sm-12">
+            <div className="card">
+                <div className="card-body">
+                    <i class="bi bi-diagram-3-fill text-info fs-1"></i>
+                    <h4>Vos Groupes</h4>
+                     <p className="text-center fs-2">0</p>
+                </div>
+            </div>
+        </div>
+    <div className="col-lg-3 col-md-6 col-sm-12">
+            <div className="card">
+                <div className="card-body">
+                    <i class="bi bi-journal-bookmark-fill text-warning fs-1"></i>
+                    <h4>Vos Modules</h4>
+                     <p className="text-center fs-2">0</p>
+                </div>
+            </div>
+        </div>
+    
+    </div>
         </>
     )
 }

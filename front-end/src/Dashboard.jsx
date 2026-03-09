@@ -46,6 +46,7 @@ function Dashboard() {
   return (
     <>
     <div className='row gx-0'>
+      
         <div className={`col-lg-${ isopen ? 3 : 1} col-md-${isopen ? 4 : 1} col-sm-12`}>
       <div className='sidebar' style={{width : isopen ? '100%' : '95px' , transition : '0.3s'}}>
         <div className='back d-flex justify-content-between px-1'>
@@ -90,13 +91,15 @@ function Dashboard() {
         </div>
       </div>
       </div>
+      
       <div className='col-lg-9 col-md-8 col-sm-12'>
-      <div className="">
-         <div className="p-4">
+      <div className="navbar sticky-top">
+        <p className='fs-4 m-1 mt-3'>Tableau De Bord</p>
+ </div>
+         <div className="main p-5">
           
           <Outlet />
         </div>
-    </div>
     </div>
     </div>
     </>

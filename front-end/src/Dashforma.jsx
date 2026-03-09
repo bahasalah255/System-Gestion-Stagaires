@@ -82,14 +82,16 @@ function Dashforma(){
       </div>
       </div>
       <div className='col-lg-9 col-md-8 col-sm-12'>
-      <div className="">
+       <div className="navbar sticky-top">
+        <p className='fs-4 m-1 mt-3'>Tableau De Bord</p>
+ </div>
          <div className="p-4">
           
           <Outlet />
         </div>
     </div>
     </div>
-    </div>
+    
     </>
   )
 }
