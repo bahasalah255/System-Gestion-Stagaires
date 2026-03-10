@@ -8,14 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+
 $data = json_decode(file_get_contents("php://input"), true);
-$nom = $data['nom'];
-$telephone = $data['telephone'];
-$specialite = $data['specialite'];
-$user = $data['user'];
-$stmt = $connexion->prepare('INSERT INTO formateur (nom_formateur,telephone,specialite,id_user) values(?,?,?,?)');
-$stmt->execute([
-$nom,$telephone,$specialite,$user
-]);
-echo json_encode(['success'=> 'added']);
+$stmt = $connexion->prepare('SELECT id_user,nom FROM user where role = "formateur" ');
+$stmt->execute([]);
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode($data)
+
+
+
 ?>

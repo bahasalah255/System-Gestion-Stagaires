@@ -15,6 +15,7 @@ const [datas,setdatas] = useState([]);
 const [datach,setdatacha] = useState();
 const [datacount,setdatacount] = useState();
 const [filieres,setfiliere] = useState(null);
+const [users , setusers] = useState(null)
 useEffect(() => {
     fetch('http://localhost:8000/count_groupes.php')
     .then(res => res.json())
@@ -73,6 +74,7 @@ useEffect(() => {
         setformateurs(data.formateur1)
         setModels(data.module1)
         setfiliere(data.counter2)
+        setusers(data.counter3)
     })
     
 },[])
@@ -124,6 +126,15 @@ return(
                     <i className="bi bi-mortarboard text-success fs-1"></i>
                     <h4>Nos Filiers</h4>
                      <p className="text-center fs-2">{filieres}</p>
+                </div>
+            </div>
+        </div>
+     <div className="col-lg-3 col-md-6 col-sm-12">
+            <div className="card">
+                <div className="card-body">
+                    <i class="bi bi-people-fill text-info fs-1"></i>
+                    <h4>Users</h4>
+                     <p className="text-center fs-2">{users}</p>
                 </div>
             </div>
         </div>

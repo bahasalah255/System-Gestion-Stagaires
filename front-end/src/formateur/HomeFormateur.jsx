@@ -31,7 +31,7 @@ function HomeFormateur(){
     <div className="col-lg-3 col-md-6 col-sm-12">
             <div className="card">
                 <div className="card-body">
-                    <i class="bi bi-diagram-3-fill text-info fs-1"></i>
+                    <i className="bi bi-diagram-3-fill text-info fs-1"></i>
                     <h4>Vos Groupes</h4>
                      <p className="text-center fs-2">0</p>
                 </div>

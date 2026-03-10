@@ -6,11 +6,18 @@ function Formateur(){
     const [telephone,settelephone] = useState('')
     const [specialite,setspecialite] = useState('')
     const [id,setID] = useState(null)
+    const [datauser,setdatauser] = useState([]);
+    const [user,setusernom] = useState('')
     useEffect(() => {
         fetch('http://localhost:8000/formateur.php')
         .then(res => res.json())
       .then(data => {setdata(data)
         console.log(data)
+        fetch('http://localhost:8000/list_users.php')
+        .then(res => res.json())
+        .then(data => 
+          setdatauser(data)
+        )
       })
     },[])
     const loadformateurs = () => {
@@ -39,6 +46,7 @@ function Formateur(){
         setnom(data.nom_formateur)
         settelephone(data.telephone)
         setspecialite(data.specialite)
+        setusernom(data.id_user)
     })
     }
     const EditForm = () => {
@@ -51,7 +59,8 @@ function Formateur(){
                 id : id,
                 nom : nom,
                 telephone: telephone,
-                specialite: specialite
+                specialite: specialite,
+                user : user
             })
 
         }
@@ -71,7 +80,8 @@ function Formateur(){
             body: JSON.stringify({
           nom : nom,
           telephone : telephone,
-          specialite : specialite
+          specialite : specialite,
+          user : user
         })
         }
     )
@@ -111,6 +121,19 @@ return(
 
               <div className="modal-body">
                 <form onSubmit={handleadd}>
+                  <div className='mb-3'>
+                    <label className='form-label'>Nom User</label>
+                    <select name="iduser" className='form-select' onChange={(e) => setusernom(e.target.value)} >
+                      <option value="">------------------</option>
+                      {datauser && datauser.map(d => {
+                        return(
+                          <>
+                          <option value={d.id_user}>{d.nom}</option>
+                          </>
+                        );
+                      })}
+                    </select>
+                  </div>
                   <div className="mb-3">
                     <label className="form-label">Nom</label>
                     <input type="text" className="form-control" name='nom' placeholder="Entrez le nom de formateur" onChange={(e) => setnom(e.target.value)}/>
@@ -164,6 +187,7 @@ return(
                         <th scope="col">Nom Formateur</th>
                         <th scope="col">Telephone</th>
                         <th scope="col">Specialite</th>
+                        <th scope='col'>User</th>
                         <th scope="col">Actions</th>
                         
                     </tr>
@@ -177,6 +201,7 @@ return(
                             <td>{d.nom_formateur}</td>
                             <td>{d.telephone}</td>
                             <td>{d.specialite}</td>
+                            <td>{d.nom}</td>
                             <td>
                                 <div className='d-flex justify-content-center gap-3'>
                                      <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#EditformateurModal" onClick={() => Edit(d.id_formateur)}> <i className="bi bi-pencil"></i></button>
@@ -191,6 +216,19 @@ return(
 
               <div className="modal-body">
                 <form onSubmit={EditForm}>
+                  <div className='mb-3'>
+                    <label className='form-label'>Nom User</label>
+                    <select name="iduser" className='form-select' value={user} onChange={(e) => setusernom(e.target.value)} >
+                      <option value="">------------------</option>
+                      {datauser && datauser.map(d => {
+                        return(
+                          <>
+                          <option value={d.id_user}>{d.nom}</option>
+                          </>
+                        );
+                      })}
+                    </select>
+                  </div>
                   <div className="mb-3">
                     <label className="form-label">Nom</label>
                     <input type="text" className="form-control" name='nom' value={nom} placeholder="Entrez le nom de formateur" onChange={(e) => setnom(e.target.value)}/>
@@ -233,7 +271,11 @@ return(
           </div>
         </div>
 {/* finit Edit Formateur */}
-                                <button className='btn btn-danger' onClick={() => deleteitem(d.id_formateur)}><i className="bi bi-trash"></i></button>
+                                <button className='btn btn-danger' onClick={() => {
+                                   if(window.confirm('Are you sure you want to remove it')){
+                                    deleteitem(d.id_formateur) }
+                                }}>
+                                <i className="bi bi-trash"></i></button>
                                 </div>
                                
                             </td>

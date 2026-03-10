@@ -23,6 +23,9 @@ $data += $s->fetch(PDO::FETCH_ASSOC);
 $ftp = $connexion->prepare('select count(id_filiere) as counter2 from filiere');
 $ftp->execute([]);
 $data += $ftp->fetch(PDO::FETCH_ASSOC);
+$pdo = $connexion->prepare('select count(id_user) as counter3 from user');
+$pdo->execute([]);
+$data += $pdo->fetch(PDO::FETCH_ASSOC);
 echo json_encode($data);
 
 

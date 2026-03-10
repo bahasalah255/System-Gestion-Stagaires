@@ -18,6 +18,7 @@ import ModuleForma from './formateur/ModuleForma.jsx'
 import NotesForma from './formateur/NotesForma.jsx'
 import ParaForma from './formateur/ParaForma.jsx'
 import Affectation from './Affectation.jsx'
+import Users from './Users.jsx'
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} >
           <Route path='utilisateurs' element={<Utili/>}/>
           <Route path='home' element={<Home/>}/>
+          <Route path='users' element={<Users/>}/>
           <Route path='formateur' element={<Formateur/>}/>
           <Route path='groupe' element={<Groupe/>}/>
           <Route path='filieres' element={<Filiere/>}/>

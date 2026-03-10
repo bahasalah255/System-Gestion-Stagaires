@@ -62,6 +62,9 @@ function Dashboard() {
               <NavLink to='/dashboard/home' end style={linkStyle}>
                  <i className="bi bi-speedometer2 fs-4"></i>  {isopen && 'Home'}
               </NavLink>
+                <NavLink to='/dashboard/users' style={linkStyle}>
+               <i className="bi bi-person-gear fs-4"></i> {isopen && "Manage Users"}
+              </NavLink>
               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
                  <i className="bi bi-people me-2 fs-4"></i>
      {isopen && "Stagiaires"}
