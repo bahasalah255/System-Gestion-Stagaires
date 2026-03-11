@@ -39,8 +39,10 @@ useEffect(() => {
        loadUsers()
         console.log(data.message)
         setmessage(data.message)
+        seterror(data.error)
         setTimeout(() => {
                 setmessage('')
+                seterror('')
             }, 3000);
     })
     }
@@ -75,6 +77,7 @@ useEffect(() => {
             seterror(dataf.error)
             setTimeout(() => {
                 setmessage('')
+                seterror('')
             }, 3000);
         })
         .catch(err => console.error('Erreur:', err))
@@ -110,31 +113,31 @@ return(
                     <div className='col-lg-4'>
                           <div className="mb-3">
                     <label className="form-label">Nom Utilisateur</label>
-                    <input type="nom" className="form-control" name='nom' placeholder='Nom Utilisateur' onChange={(e) => setnom(e.target.value)}/>
+                    <input type="nom" className="form-control" name='nom' placeholder='Nom Utilisateur' onChange={(e) => setnom(e.target.value)} required/>
                     </div>
                     </div>
                     <div className='col-lg-4'>
                      <div className="mb-3">
                     <label className="form-label">Prenom</label>
-                    <input type="nom" className="form-control" name='prenom' placeholder='Prenom Utilisateur' onChange={(e) => setprenom(e.target.value)}/>
+                    <input type="nom" className="form-control" name='prenom' placeholder='Prenom Utilisateur' onChange={(e) => setprenom(e.target.value)} required />
                   </div>
                   </div>
                   <div className='col-lg-4'>
                      <div className="mb-3">
                     <label className="form-label">Email</label>
-                  <input type="email" className="form-control" name='email' placeholder='Email Utilisateur' onChange={(e) => setemail(e.target.value)}/>
+                  <input type="email" className="form-control" name='email' placeholder='Email Utilisateur' onChange={(e) => setemail(e.target.value)} required />
                   </div>
                   </div>
                   <div className='col-lg-6'>
                      <div className="mb-3">
                     <label className="form-label">Password</label>
-                  <input type="password" className="form-control" name='password' placeholder='Mot de passe' onChange={(e) => setpassword(e.target.value)}/>
+                  <input type="password" className="form-control" name='password' placeholder='Mot de passe' onChange={(e) => setpassword(e.target.value)}required />
                   </div>
                   </div>
                   <div className='col-lg-6'>
                      <div className="mb-3">
                     <label className="form-label">Role</label>
-                    <select name="role" className='form-select' onChange={(e) => setrole(e.target.value)}>
+                    <select name="role" className='form-select' onChange={(e) => setrole(e.target.value)} required >
                         <option value="">--------Choisir Un Role -----</option>
                         <option value="admin">Admin</option>
                         <option value="formateur">Formateur</option>
@@ -159,7 +162,7 @@ return(
         <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
     )} 
     {error && (
-        <p className='message bg-success fs-5' role="alert">{error}   <i className="bi bi-check-circle-fill me-2"></i></p>
+        <p className='error bg-danger fs-5' role="alert">{error}   <i className="bi bi-check-circle-fill me-2"></i></p>
     )} 
         <div className='stagaires'>
         <table className='table'>

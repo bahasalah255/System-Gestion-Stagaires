@@ -9,11 +9,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 $data = json_decode(file_get_contents("php://input"), true);
-$id = $data['id'];
+$error = '';
+try {
+    $id = $data['id'];
 $stmt = $connexion->prepare('DELETE FROM user where id_user= ?');
-if ($stmt->execute([$id])) {
+$stmt->execute([$id]);  // ← move execute() inside try
+    
     echo json_encode(['success' => true, 'message' => 'User deleted']);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Failed to delete User']);
+
+} catch (Exception $e) {
+    if(str_contains($e->getMessage(),'1451')){
+        $error = 'Tu Dois Supprimer Le formateur';
+    }
+    else {
+        $error = 'some thing wrong Try Again';
+    }
+     echo json_encode(['error' => $error]);
 }
 

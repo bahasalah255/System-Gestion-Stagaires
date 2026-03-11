@@ -10,10 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $data = json_decode(file_get_contents("php://input"), true);
+$error = '';
 try {
-    $nom = $data['nom'];
-$prenom = $data['prenom'];
-$email = $data['email'];
+    $nom = htmlspecialchars($data['nom']);
+$prenom = htmlspecialchars($data['prenom']);
+$email = htmlspecialchars($data['email']);
 $password = $data['password'];
 $hash = password_hash($password,PASSWORD_DEFAULT);
 $role = $data['role'];
@@ -30,16 +31,21 @@ $stmt->execute([
    $role
 ]);
 $message = 'user Adedd';
-    throw new Exception('Inavlid email');
+
 
 } catch (Exception $e) {
-    $e = 'Caught exception: ' . $e->getMessage();
+  if(str_contains($e->getMessage(), '1062')){
+        $error = 'Email already exists !'; 
+    } else {
+        $error = 'Something went wrong !';
+    }
+   
 }
 finally {
-    if($e != ""){
+    if($error != ""){
         echo json_encode([
             'status' => '404',
-            'error' => $e
+            'error' => $error
         ]);
     }
     else {
