@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $data = json_decode(file_get_contents("php://input"), true);
-$nom = $data['nom'];
+try {
+    $nom = $data['nom'];
 $prenom = $data['prenom'];
 $email = $data['email'];
 $password = $data['password'];
@@ -28,7 +29,24 @@ $stmt->execute([
    $hash,
    $role
 ]);
-echo json_encode([
+$message = 'user Adedd';
+    throw new Exception('Inavlid email');
+
+} catch (Exception $e) {
+    $e = 'Caught exception: ' . $e->getMessage();
+}
+finally {
+    if($e != ""){
+        echo json_encode([
+            'status' => '404',
+            'error' => $e
+        ]);
+    }
+    else {
+         echo json_encode([
     'status' => '200',
-    'message' => 'user adedd'
-]);
+    'message' => 'user adedd',
+         ]);
+    }
+   
+}

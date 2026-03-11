@@ -11,6 +11,18 @@ function Users(){
     const [password ,setpassword] = useState('');
     const [role ,setrole] = useState('');
     const [selectedid,setSelectedId] = useState(null);
+    const [user, setuser] = useState('');
+    const [error , seterror] = useState('');
+   useEffect(() => {
+  const userData = localStorage.getItem('user');
+  const user1 = JSON.parse(userData);
+  setuser(user1.nom);
+}, []);
+
+useEffect(() => {
+  console.log(user); 
+}, [user]); 
+    
     const handledelete = (id) => {
         fetch('http://localhost:8000/delete_user.php',{
             method: "POST",
@@ -60,6 +72,7 @@ function Users(){
         .then(dataf => {
             loadUsers()
             setmessage(dataf.message)
+            seterror(dataf.error)
             setTimeout(() => {
                 setmessage('')
             }, 3000);
@@ -145,6 +158,9 @@ return(
         {message && (
         <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
     )} 
+    {error && (
+        <p className='message bg-success fs-5' role="alert">{error}   <i className="bi bi-check-circle-fill me-2"></i></p>
+    )} 
         <div className='stagaires'>
         <table className='table'>
 
@@ -179,7 +195,7 @@ return(
                         <td>
                             <div className='d-flex justify-content-center gap-3'>
                             <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#EditGroupeModal" onClick={(e) => Editsub(e,d.id_group)}> <i className="bi bi-pencil me-1"></i></button>
-                            <button className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deletemodal"  onClick={() => setSelectedId(d.id_user)}><i className="bi bi-trash me-1"></i></button>
+                            <button className={`btn btn-danger ${ user == d.nom ? 'd-none' : 'd-block'}`} data-bs-toggle="modal" data-bs-target="#deletemodal"  onClick={() => setSelectedId(d.id_user)} ><i className="bi bi-trash me-1"></i></button>
                             </div>
                             
                         </td>
@@ -193,6 +209,7 @@ return(
                 </table>
                 </div>
                 </div>
+                
     </>
 );
 }
