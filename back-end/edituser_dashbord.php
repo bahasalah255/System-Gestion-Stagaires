@@ -11,30 +11,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $error = '';
 try {
     $data = json_decode(file_get_contents("php://input"), true);
-$nom = $data['nom'];
-$prenom = $data['prenom'];
-$email = $data['email'];
-$password = $data['password'];
-$role = $data['role'];
-$id = $data['id'];
-if(!empty($password)){
-    $hash = password_hash($password,PASSWORD_DEFAULT);
+    $id = $data['id'];
+    $pdo = $connexion->prepare('SELECT password from user where id_user = ?');
+    $pdo->execute([$id]);
+    $pass = $pdo->fetch(PDO::FETCH_ASSOC);
+    $nom = $data['nom'];
+    $prenom = $data['prenom'];
+    $email = $data['email'];
+    $password = $data['password'];
+    $newpass = $data['newpassword'];
+    $role = $data['role'];
+    $pass_bdd = $pass['password'];
+if(!empty($newpass) && password_verify($password, $pass_bdd )){
+    $hash = password_hash($newpass,PASSWORD_DEFAULT);
     $stmt = $connexion->prepare( 'UPDATE user
      SET nom = ?, prenom = ?, email = ?, password = ? , role = ?
      WHERE id_user = ?');
 $stmt->execute([
     $nom,$prenom,$email,$hash,$role,$id
 ]);
+echo json_encode(["message" => "User Edited Successful"]);
 }
 else {
-     $stmt = $connexion->prepare( 'UPDATE user
+    if(password_verify($password, $pass_bdd)){
+        $stmt = $connexion->prepare( 'UPDATE user
      SET nom = ?, prenom = ?, email = ? , role = ?
      WHERE id_user = ?');
 $stmt->execute([
     $nom,$prenom,$email,$role,$id
 ]);
-}
 echo json_encode(["message" => "User Edited Successful"]);
+    }
+    else {
+        echo json_encode(["error" => "Mot De passe incorrect"]);
+    }
+     
+}
+
 } catch(Exception $e) {
     $error = $e->getMessage();
     echo json_encode(['error' => $error]);
