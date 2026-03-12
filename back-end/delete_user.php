@@ -12,7 +12,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 $error = '';
 try {
     $id = $data['id'];
-$stmt = $connexion->prepare('DELETE FROM user where id_user= ?');
+$stmt = $connexion->prepare('UPDATE user  SET is_delete = 1, email = concat(email,"is_delete",id_user) where id_user = ?');
 $stmt->execute([$id]);  // ← move execute() inside try
     
     echo json_encode(['success' => true, 'message' => 'User deleted']);

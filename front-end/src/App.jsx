@@ -19,6 +19,7 @@ import NotesForma from './formateur/NotesForma.jsx'
 import ParaForma from './formateur/ParaForma.jsx'
 import Affectation from './Affectation.jsx'
 import Users from './Users.jsx'
+import DeleteUsers from './DeleteUsers.jsx'
 
 function App() {
   
@@ -37,6 +38,7 @@ function App() {
           <Route path='filieres' element={<Filiere/>}/>
           <Route path='modules' element={<Module/>}/>
           <Route path='affectation' element={<Affectation/>}/>
+          <Route path='user-delete' element={<DeleteUsers/>}/>
         </Route>
         <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard-formateur' element={<Dashforma/>}>

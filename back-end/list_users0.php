@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-$stmt = $connexion->prepare("SELECT * FROM user where is_delete = 0");
+$stmt = $connexion->prepare("SELECT * FROM user where is_delete = 1");
 $stmt->execute();
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($data);

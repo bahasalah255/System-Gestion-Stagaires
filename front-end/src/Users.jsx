@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import Delete from './Delete.jsx';
+import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
 function Users(){
     const [users,setusers] = useState([])
     const [ishide,setishide] = useState(true)
@@ -162,7 +163,7 @@ return(
         <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
     )} 
     {error && (
-        <p className='error bg-danger fs-5' role="alert">{error}   <i className="bi bi-check-circle-fill me-2"></i></p>
+        <p className='error bg-danger fs-5' role="alert">{error}  <i className="bi bi-x-circle me-2"></i>  </p>
     )} 
         <div className='stagaires'>
         <table className='table'>
@@ -212,7 +213,9 @@ return(
                 </table>
                 </div>
                 </div>
-                
+                <NavLink to='/dashboard/user-delete' >
+                <button className='btn btn-info'><i className="bi bi-archive text-white fs-4"></i> Voir Les Comptes Supprimes</button>
+                </NavLink>
     </>
 );
 }
