@@ -24,7 +24,7 @@ if (!$data) {
 $nom = $data['nom'] ?? '';
 $password = $data['password'] ?? '';
 
-$stmt = $connexion->prepare("SELECT nom,password,role FROM user WHERE nom = :nom");
+$stmt = $connexion->prepare("SELECT id_user,nom,password,role FROM user WHERE nom = :nom");
 $stmt->execute([':nom' => $nom]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -36,6 +36,7 @@ if ($user && password_verify($password, $user['password'])) {
         "user" => [
             "nom" => $user['nom'],
             "role" => $user['role'],
+            "id" => $user['id_user']
         ]
     ]);
     exit();

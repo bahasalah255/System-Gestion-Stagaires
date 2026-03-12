@@ -14,6 +14,7 @@ function Users(){
     const [selectedid,setSelectedId] = useState(null);
     const [user, setuser] = useState('');
     const [error , seterror] = useState('');
+    const [id,setid] = useState('');
    useEffect(() => {
   const userData = localStorage.getItem('user');
   const user1 = JSON.parse(userData);
@@ -21,7 +22,7 @@ function Users(){
 }, []);
 
 useEffect(() => {
-  console.log(user); 
+  //console.log(user); 
 }, [user]); 
     
     const handledelete = (id) => {
@@ -38,7 +39,7 @@ useEffect(() => {
     .then(res => res.json())
     .then(data => {
        loadUsers()
-        console.log(data.message)
+        //console.log(data.message)
         setmessage(data.message)
         seterror(data.error)
         setTimeout(() => {
@@ -92,6 +93,61 @@ useEffect(() => {
          fetch('http://localhost:8000/users.php')
         .then(res => res.json())
         .then(data => setusers(data))
+    }
+    const EdituserModel = (e,id) => {
+        e.preventDefault()
+        setid(id)
+        fetch('http://localhost:8000/user_id.php',{
+            method : "POST",
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+                id : id
+            })
+        }
+    )
+    .then(res => res.json())
+    .then(data => {
+       
+        data.map(d => {
+            setnom(d.nom)
+        setprenom(d.prenom)
+        setemail(d.email)
+        setrole(d.role)
+        
+        })
+    }
+    )
+    }
+    const handleEdit = (e) => {
+        e.preventDefault()
+        fetch('http://localhost:8000/edituser.php',{
+            method : "POST",
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+                id : id,
+                nom : nom,
+                prenom : prenom,
+                email : email ,
+                password : password,
+                role : role
+            })
+        }
+    )
+    .then( res => res.json())
+    .then(data => {
+        loadUsers()
+        setmessage(data.message)
+        seterror(data.error)
+        setTimeout(() => {
+            setmessage('')
+        seterror('')
+        }, 3000);
+    })
+    .catch (error => console.log(error))
     }
 return(
     <>
@@ -198,7 +254,7 @@ return(
                         <td>{d.date_creation}</td>
                         <td>
                             <div className='d-flex justify-content-center gap-3'>
-                            <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#EditGroupeModal" onClick={(e) => Editsub(e,d.id_group)}> <i className="bi bi-pencil me-1"></i></button>
+                            <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#EdituserModel" onClick={(e) => EdituserModel(e,d.id_user)}> <i className="bi bi-pencil me-1"></i></button>
                             <button className={`btn btn-danger ${ user == d.nom ? 'd-none' : 'd-block'}`} data-bs-toggle="modal" data-bs-target="#deletemodal"  onClick={() => setSelectedId(d.id_user)} ><i className="bi bi-trash me-1"></i></button>
                             </div>
                             
@@ -216,6 +272,66 @@ return(
                 <NavLink to='/dashboard/user-delete' >
                 <button className='btn btn-info'><i className="bi bi-archive text-white fs-4"></i> Voir Les Comptes Supprimes</button>
                 </NavLink>
+                {/* Edit user MODAL */}
+        <div className="modal fade" id="EdituserModel" tabIndex="-1">
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+
+              <div className="modal-header">
+                <h5 className="modal-title">Edit Un Utilisateur</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <div className="modal-body">
+                <form onSubmit={handleEdit}>
+                 <div className='row'>
+                    <div className='col-lg-4'>
+                          <div className="mb-3">
+                    <label className="form-label">Nom Utilisateur</label>
+                    <input type="nom" className="form-control" name='nom' placeholder='Nom Utilisateur' value={nom} onChange={(e) => setnom(e.target.value)} required/>
+                    </div>
+                    </div>
+                    <div className='col-lg-4'>
+                     <div className="mb-3">
+                    <label className="form-label">Prenom</label>
+                    <input type="nom" className="form-control" name='prenom' placeholder='Prenom Utilisateur' value={prenom} onChange={(e) => setprenom(e.target.value)} required />
+                  </div>
+                  </div>
+                  <div className='col-lg-4'>
+                     <div className="mb-3">
+                    <label className="form-label">Email</label>
+                  <input type="email" className="form-control" name='email' placeholder='Email Utilisateur' value={email} onChange={(e) => setemail(e.target.value)} required />
+                  </div>
+                  </div>
+                  <div className='col-lg-6'>
+                     <div className="mb-3">
+                    <label className="form-label">Password</label>
+                  <input type="password" className="form-control" name='password' placeholder='Mot de passe' onChange={(e) => setpassword(e.target.value)} />
+                  </div>
+                  </div>
+                  <div className='col-lg-6'>
+                     <div className="mb-3">
+                    <label className="form-label">Role</label>
+                    <select name="role" className='form-select' onChange={(e) => setrole(e.target.value)} value={role} required >
+                        <option value="">--------Choisir Un Role -----</option>
+                        <option value="admin">Admin</option>
+                        <option value="formateur">Formateur</option>
+                        <option value="stagaire">Stagaire</option>
+                    </select>
+                  </div>
+                  </div>
+                 </div>
+                
+                  <button type="submit" className="btn btn-primary w-100" data-bs-dismiss="modal"  >
+                    Enregistrer
+                  </button>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+{/* finit Edit MODAL user */}
     </>
 );
 }

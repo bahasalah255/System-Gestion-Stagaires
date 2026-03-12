@@ -176,3 +176,7 @@ thead tr {
     transform: translateY(0);
   }
 }
+.container1 {
+  border: 2px solid transparent;
+  height: 500px;
+}
