@@ -20,6 +20,7 @@ import ParaForma from './formateur/ParaForma.jsx'
 import Affectation from './Affectation.jsx'
 import Users from './Users.jsx'
 import DeleteUsers from './DeleteUsers.jsx'
+import Parametres from './Parametres.jsx'
 
 function App() {
   
@@ -39,6 +40,7 @@ function App() {
           <Route path='modules' element={<Module/>}/>
           <Route path='affectation' element={<Affectation/>}/>
           <Route path='user-delete' element={<DeleteUsers/>}/>
+          <Route path='parametres' element={<Parametres/>}/>
         </Route>
         <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard-formateur' element={<Dashforma/>}>

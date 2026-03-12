@@ -98,6 +98,9 @@ function Dashboard() {
       <div className='col-lg-9 col-md-8 col-sm-12'>
       <div className="navbar sticky-top">
         <p className='fs-4 m-1 mt-3'>Tableau De Bord</p>
+        <NavLink to='/dashboard/parametres' >
+        <button className='btn btn-secondary mx-3 fs-6'><i className="bi bi-gear-fill"></i> Parametres</button>
+        </NavLink>
  </div>
          <div className="main p-5">
           
