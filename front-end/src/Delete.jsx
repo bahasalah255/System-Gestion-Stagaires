@@ -12,7 +12,7 @@ function Delete({ onConfirm }){
         <p>Vous etez Sure de supprimer ca</p>
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-danger" onClick={onConfirm}>Supprimer</button>
+        <button type="button" className="btn btn-danger" onClick={onConfirm} data-bs-dismiss="modal">Supprimer</button>
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

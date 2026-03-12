@@ -1,27 +1,19 @@
 <?php 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-$host = 'localhost';
-$dbname = 'gestion_ofppt';
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$host = $_ENV['DB_HOST'];
+$dbname = $_ENV['DB_NAME'];
 $port = "3306";
-$username = 'root';
-$password = 'salah123';
-$success = FALSE;
+$username = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
+
 try {
     $connexion = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $success = TRUE;
 } catch(PDOException $e) {
-    $success = FALSE;
-    $errorMessage = $e->getMessage();
+    die(json_encode(['error' => 'Connexion échouée : ' . $e->getMessage()]));
 }
-if ($success) {
-    $response = ["status" => "ok", "message" => "Connexion réussie !"];
-} else {
-    $response = ["status" => "error", "message" => "Impossible de se connecter  $errorMessage "];
-}
-
-
-
-
 ?>
