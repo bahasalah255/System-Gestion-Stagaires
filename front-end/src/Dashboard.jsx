@@ -3,32 +3,27 @@ import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
 
 function Dashboard() {
   const [user, setUser] = useState(null)
-  const [role, setrole] = useState(null)
   const [isopen,setisopen] = useState(true);
   const navigate = useNavigate()
 
   const toggleSidebar = () => setisopen(!isopen);
   useEffect(() => {
-    // Récupère les données du localStorage
-    const userData = localStorage.getItem('user')
-   
-    
+     const userData = localStorage.getItem('user');
+
     if (!userData) {
-      // Si pas connecté, redirige vers login
-      navigate('/')
-    } else {
-         
-       if(userData){
-        const user = JSON.parse(userData);
-        if(user.role != "admin"){
-          navigate("/")
-        }
-       }
-      setUser(JSON.parse(userData))
-      
-      
+        navigate('/');
+        return;
     }
-  }, [navigate])
+
+    const user = JSON.parse(userData); // parse une seule fois
+
+    if (user.role !== "admin") {
+        navigate('/');
+        return;
+    }
+
+    if(!user) setUser(user); // réutilise la variable déjà parsée
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('user') // Supprime la session
@@ -98,6 +93,7 @@ function Dashboard() {
       <div className='col-lg-9 col-md-8 col-sm-12'>
       <div className="navbar sticky-top">
         <p className='fs-4 m-1 mt-3'>Tableau De Bord</p>
+        <p>{user && user.nom}</p>
         <NavLink to='/dashboard/parametres' >
         <button className='btn btn-secondary mx-3 fs-6'><i className="bi bi-gear-fill"></i> Parametres</button>
         </NavLink>

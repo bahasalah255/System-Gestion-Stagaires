@@ -8,27 +8,21 @@ function Dashforma(){
   useEffect(() => {
     // Récupère les données du localStorage
     const userData = localStorage.getItem('user');
-    
-    
     if (!userData) {
       // Si pas connecté, redirige vers login
       navigate('/')
-    } else {
-      /*
-      if(role != "formateur" || role != "admin"){
-        navigate("/")
-      }
-        */
-       if(userData){
-        const user = JSON.parse(userData);
+      return ;
+    }
+      const user = JSON.parse(userData);
         if(user.role != "formateur" && user.role != "admin"){
           navigate("/")
+          return ;
         }
         else {
-             setUser(JSON.parse(userData))
+             if(!user) setUser(user)
         }
-       }
-    }
+       
+  
   }, [])
 
   const handleLogout = () => {
@@ -84,6 +78,7 @@ function Dashforma(){
       <div className='col-lg-9 col-md-8 col-sm-12'>
        <div className="navbar sticky-top">
         <p className='fs-4 m-1 mt-3'>Tableau De Bord</p>
+        <p>{user && user.nom}</p>
  </div>
          <div className="p-4">
           

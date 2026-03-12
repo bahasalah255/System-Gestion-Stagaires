@@ -3,6 +3,7 @@ function Filiere(){
     const [data,setData] = useState('');
     const [nom , setnom] = useState('');
     const [annee , setannee] = useState('');
+     const [message,setmessage] = useState('');
     const [id, setid] = useState('');
     useEffect(() => {
         fetch('http://localhost:8000/filiere.php')
@@ -83,7 +84,8 @@ loadfiliers()})
             console.log(data)
         })
     }
-const handlAdd = () => {
+const handlAdd = (e) => {
+  e.preventDefault()
         fetch('http://localhost:8000/add_filiere.php',{
             method : 'POST',
             headers : {
@@ -96,7 +98,10 @@ const handlAdd = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log('adedd')
+            setmessage(data.message)
+            setTimeout(() => {
+              setmessage('')
+            }, 3000);
             loadfiliers()
         })
     }
@@ -142,6 +147,9 @@ const handlAdd = () => {
         </div>
 {/* finit MODAL Groupe */}
           <div className='utili'>
+            {message && (
+        <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
+    )} 
         <div className='stagaires'>
         <table className='table'>
 

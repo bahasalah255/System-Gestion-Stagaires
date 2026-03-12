@@ -7,7 +7,8 @@ function Formateur(){
     const [specialite,setspecialite] = useState('')
     const [id,setID] = useState(null)
     const [datauser,setdatauser] = useState([]);
-    const [user,setusernom] = useState('')
+    const [user,setusernom] = useState('');
+    const [message,setmessage] = useState('');
     useEffect(() => {
         fetch('http://localhost:8000/formateur.php')
         .then(res => res.json())
@@ -49,7 +50,8 @@ function Formateur(){
         setusernom(data.id_user)
     })
     }
-    const EditForm = () => {
+    const EditForm = (e) => {
+      e.preventDefault()
         fetch('http://localhost:8000/editformateur.php',{
             method : 'POST',
             headers : {
@@ -66,8 +68,13 @@ function Formateur(){
         }
     )
     .then(res => res.json())
-    .then(data=> 
+    .then(data=> {
+      setmessage(data.message)
+      setTimeout(() => {
+        setmessage('')
+      }, 3000);
         loadformateurs()
+    }
     )
     }
     const handleadd = (e) => {
@@ -178,6 +185,9 @@ return(
 {/* finit Formateur */}
 {/* Tableau Affiche Formateur */}
     <div className='utili'>
+         {message && (
+        <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
+    )} 
         <div className='stagaires'>
         <table className='table'>
 

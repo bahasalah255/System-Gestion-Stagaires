@@ -200,7 +200,7 @@ function Affectation(){
         <p className='message bg-success fs-5' role="alert">{message}   <i className="bi bi-check-circle-fill me-2"></i></p>
     )} 
         <div className='stagaires'>
-             <input type='text' className='form-control mb-2' placeholder='Search Bar' onChange={(e) => setsearch(e.target.value)}/>
+             <input type='text' className='form-control mb-2' placeholder='Search Bar' />
              
         <table className='table'>
              <thead>

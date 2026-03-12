@@ -14,5 +14,5 @@ $filiere = $data['filiere'];
 $formation = $data['annee'];
 $stmt = $connexion->prepare('INSERT INTO filiere (nom,annee_formation) values(?,?)');
 $stmt->execute([$nom,$formation]);
-echo json_encode(['success'=> 'added']);
+echo json_encode(['message'=> 'Filiere Ajouter Avec Success']);
 ?>

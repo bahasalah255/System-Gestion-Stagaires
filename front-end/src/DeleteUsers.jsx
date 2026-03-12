@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
+import {NavLink  } from 'react-router-dom'
 function DeleteUsers() {
     const [users,setusers] = useState('');
      const [ishide,setishide] = useState(true);
@@ -26,6 +26,7 @@ function DeleteUsers() {
     )
     };
     const Restaurer = (id) => {
+        console.log(id)
         setid(id)
         fetch('http://localhost:8000/Restaurer.php',{
             method : "POST",

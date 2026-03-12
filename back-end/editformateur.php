@@ -21,7 +21,7 @@ $stmt = $connexion->prepare( 'UPDATE formateur
 $stmt->execute([
     $nom,$telephone,$specialite,$user,$id
 ]);
-echo json_encode(["success" => true]);
+echo json_encode(["message" => "Edit avec Success"]);
 
 
 
