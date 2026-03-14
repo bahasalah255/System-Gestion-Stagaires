@@ -28,10 +28,7 @@ function Utili(){
     useEffect(() => {
       loadstagires()
     },[])
-    const handledeleteform = (e) => {
-      e.preventDefault();
-      
-    }
+   
     const handleEditSubmit = (e,id) => {
       setID(id)
       e.preventDefault();

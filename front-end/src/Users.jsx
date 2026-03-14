@@ -1,10 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import Delete from './Delete.jsx';
-import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
+import {   NavLink } from 'react-router-dom'
 function Users(){
     const [users,setusers] = useState([])
     const [ishide,setishide] = useState(true)
-    const [background,setbackground] = useState('');
     const [message,setmessage] = useState('');
     const [nom ,setnom] = useState('');
     const [prenom ,setprenom] = useState('');
@@ -15,10 +14,12 @@ function Users(){
     const [user, setuser] = useState('');
     const [error , seterror] = useState('');
     const [id,setid] = useState('');
+    const [token,settoken] = useState('');
    useEffect(() => {
   const userData = localStorage.getItem('user');
   const user1 = JSON.parse(userData);
   setuser(user1.nom);
+  settoken(user1.token)
 }, []);
 
 useEffect(() => {
@@ -57,12 +58,14 @@ useEffect(() => {
     
     )
     };
+    
    const handlAdd = (e) => {
          e.preventDefault()
         fetch('http://localhost:8000/add_user.php',{
             method : 'POST',
             headers : {
-                  'Content-Type' : 'application/json'
+                  'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
                 nom : nom,
@@ -250,7 +253,7 @@ return(
                         <td>{d.prenom}</td>
                         <td>{d.email}</td>
                         <td > <p style={{display : ishide[d.id_user] ? 'block' : 'none' , transition : '0.3s'}}>{d.password}</p> <button className='btn btn-white'  onClick={() => hidepassword(d.id_user)}><i className={` ${ishide[d.id_user] ? "bi bi-eye-slash-fill" : "bi bi-eye-fill" }`}></i>  </button></td>
-                        <td className={`badge badge-primary ${background} `} onClick={() => badges(d.role)}>{d.role}</td>
+                        <td className={`badge badge-primary  `}>{d.role}</td>
                         <td>{d.date_creation}</td>
                         <td>
                             <div className='d-flex justify-content-center gap-3'>
