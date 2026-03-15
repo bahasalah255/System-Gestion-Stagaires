@@ -5,6 +5,7 @@ function Dashforma(){
   const navigate = useNavigate()
   const [isopen,setisopen] = useState(true);
   const toggleSidebar = () => setisopen(!isopen);
+  const [id,setid] = useState('');
   useEffect(() => {
     // Récupère les données du localStorage
     const userData = localStorage.getItem('user');
@@ -14,6 +15,7 @@ function Dashforma(){
       return ;
     }
       const user = JSON.parse(userData);
+      setid(user.id);
         if(user.role != "formateur" && user.role != "admin"){
           navigate("/")
           return ;
@@ -26,9 +28,23 @@ function Dashforma(){
   }, [])
 
   const handleLogout = () => {
+    fetch('http://localhost:8000/logout.php',{
+      method : 'POST',
+      headers : {
+         'Content-Type' : 'application/json'
+      },
+      body : JSON.stringify({
+        id : id
+
+      })
+    }
+  )
+    
+    
     localStorage.removeItem('user') // Supprime la session
     navigate('/')
   }
+  
   const linkStyle = ({ isActive }) => ({
     backgroundColor: isActive ? '#4F46E5' : '#1E293B',
     borderRadius: '8px',
