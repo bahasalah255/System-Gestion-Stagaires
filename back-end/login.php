@@ -32,8 +32,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user && password_verify($password, $user['password'])) {
     $token = bin2hex(random_bytes(32));
-    $stmt = $connexion->prepare('UPDATE user SET token = ? WHERE id_user = ?');
-    $stmt->execute([$token, $user['id_user']]);
+    $stmt = $connexion->prepare('UPDATE user SET token = ? , is_connected = ?  WHERE id_user = ?');
+    $stmt->execute([$token, 1,$user['id_user']]);
     echo json_encode([
         "status" => "ok",
         "message" => "Connexion réussie !",
