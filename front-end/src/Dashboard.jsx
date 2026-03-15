@@ -6,7 +6,9 @@ function Dashboard() {
   const [isopen,setisopen] = useState(true);
   const [id,setid] = useState('');
   const navigate = useNavigate()
-
+  const functoken = () => {
+    const token = user.token
+  }
   const toggleSidebar = () => setisopen(!isopen);
   useEffect(() => {
      const userData = localStorage.getItem('user');

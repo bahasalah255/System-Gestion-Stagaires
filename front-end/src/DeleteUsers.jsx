@@ -1,18 +1,35 @@
 import React,{useState, useEffect} from 'react';
 import {NavLink  } from 'react-router-dom'
+import functoken from './Dashboard.jsx'
 function DeleteUsers() {
     const [users,setusers] = useState('');
      const [ishide,setishide] = useState(true);
      const [id,setid] = useState('');
      const [message,setmessage] = useState('');
      const [error,seterror] = useState('');
+     const user = localStorage.getItem('user');
+     const userdata = JSON.parse(user);
         const loadUsers = () => {
-         fetch('http://localhost:8000/list_users0.php')
+         fetch('http://localhost:8000/list_users0.php',{
+            headers : {
+                     'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userdata.token
+                }
+            }
+        )
+         
         .then(res => res.json())
         .then(data => setusers(data))
     }
        useEffect(() => {
-            fetch('http://localhost:8000/list_users0.php')
+            fetch('http://localhost:8000/list_users0.php',{
+                headers : {
+                     'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userdata.token
+                }
+            }
+        
+    )
             .then(res => res.json())
             .then(data => setusers(data))
         },[])
