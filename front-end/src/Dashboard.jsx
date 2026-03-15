@@ -4,19 +4,20 @@ import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
 function Dashboard() {
   const [user, setUser] = useState(null)
   const [isopen,setisopen] = useState(true);
+  const [id,setid] = useState('');
   const navigate = useNavigate()
 
   const toggleSidebar = () => setisopen(!isopen);
   useEffect(() => {
      const userData = localStorage.getItem('user');
-
+     
     if (!userData) {
         navigate('/');
         return;
     }
 
     const user = JSON.parse(userData); // parse une seule fois
-
+    setid(user.id);
     if (user.role !== "admin") {
         navigate('/');
         return;
@@ -26,6 +27,19 @@ function Dashboard() {
   }, [])
 
   const handleLogout = () => {
+    fetch('http://localhost:8000/logout.php',{
+      method : 'POST',
+      headers : {
+         'Content-Type' : 'application/json'
+      },
+      body : JSON.stringify({
+        id : id
+
+      })
+    }
+  )
+    
+    
     localStorage.removeItem('user') // Supprime la session
     navigate('/')
   }
