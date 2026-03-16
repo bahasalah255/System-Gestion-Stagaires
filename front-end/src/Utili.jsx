@@ -11,19 +11,34 @@ function Utili(){
     const [nomgroupe,setnomgroup] = useState('')
     const [editId,setID] = useState(null)
     const [filiere,setfiliere] = useState('');
-    const [fili,setfi] = useState('')
+    const [fili,setfi] = useState('');
+    const user = localStorage.getItem('user');
+    const userdata = JSON.parse(user);
     useEffect(() => {
-      fetch('http://localhost:8000/filiere.php')
+      fetch('http://localhost:8000/filiere.php',{
+         headers : {
+          'Content-Type' : 'application/json',
+        'Authorization': 'Bearer ' + userdata.token
+        }
+      }
+    )
       .then(res => res.json())
       .then(data => {setfiliere(data)
-        console.log(data)
+        
       })
     },[])
     const navigate = useNavigate()
     const loadstagires = () => {
-      fetch('http://localhost:8000/list-stagaire.php')
+      fetch('http://localhost:8000/list-stagaire.php',{
+        headers : {
+          'Content-Type' : 'application/json',
+        'Authorization': 'Bearer ' + userdata.token
+        }
+      }
+    )
       .then(res => res.json())
       .then(data => setNom(data))
+    
     }
     useEffect(() => {
       loadstagires()
@@ -36,7 +51,8 @@ function Utili(){
       fetch('http://localhost:8000/stagaire.php', {
         method : 'POST',
         headers : {
-          'Content-Type' : 'application/json'
+          'Content-Type' : 'application/json',
+          'Authorization': 'Bearer ' + userdata.token
         },
         body: JSON.stringify({
           id : id
@@ -63,7 +79,8 @@ function Utili(){
       fetch('http://localhost:8000/delete.php',{
           method : 'POST',
           headers : {
-             "Content-Type": "application/json"
+             "Content-Type": "application/json",
+             'Authorization': 'Bearer ' + userdata.token
           },
       
       body: JSON.stringify({
@@ -72,10 +89,8 @@ function Utili(){
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-        fetch('http://localhost:8000/list-stagaire.php')
-        .then(res => res.json())
-        .then(data => setNom(data));
+        loadstagires()
+      
     })
     .catch((err) => {
       console.error("Error deleting:", err);
@@ -87,7 +102,8 @@ function Utili(){
      fetch('http://localhost:8000/add_stagaire.php',{
         method: 'POST',
         headers : {
-             "Content-Type": "application/json"
+             "Content-Type": "application/json",
+             'Authorization': 'Bearer ' + userdata.token
         },
         body: JSON.stringify({
   nom: stnom,
@@ -127,18 +143,24 @@ const handleEditform = (e) => {
 loadstagires()})
  .catch(error => console.log(error))
 }
+/*
    useEffect(() => {
-     fetch('http://localhost:8000/list-stagaire.php')
+    /*
+     fetch('http://localhost:8000/list-stagaire.php',{
+      headers : {
+          'Content-Type' : 'application/json',
+        'Authorization': 'Bearer ' + userdata.token
+        }
+     }
+    )
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        fetch('http://localhost:8000/list-stagaire.php')
-        .then(res => res.json())
-        .then(data => setNom(data));
+        setNom(data)
     })
     .catch(error => console.error('Error:', error));
     
    },[])
+   */
    useEffect(() => {
      fetch('http://localhost:8000/list_groupes.php')
      

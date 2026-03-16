@@ -6,6 +6,12 @@ function Groupe(){
     const [nom , setnom] = useState('');
     const [annee , setannee] = useState('');
     const [id, setid] = useState(null);
+    const [token,settoken] = useState('');
+      useEffect(() => {
+      const userData = localStorage.getItem('user');
+      const user1 = JSON.parse(userData);
+      settoken(user1.token)
+    }, []);
     const Editsub = (e,id) => {
        setid(id)
       e.preventDefault();
@@ -94,21 +100,37 @@ loadgroupes()})
         })
     }
     useEffect(() => {
-        fetch('http://localhost:8000/list_groupes.php')
+      if(!token) return ;
+        fetch('http://localhost:8000/list_groupes.php',{
+           headers : {'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
+           }
+        }
+      )
         .then(res => res.json())
         .then(data => {setdata(data)
             console.log(data)
         })
-    },[])
+    },[token])
     useEffect(() => {
-        fetch('http://localhost:8000/filiere.php')
+      if (!token) return ;
+        fetch('http://localhost:8000/filiere.php',{
+             headers : {'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
+             }
+        }
+      )
         .then(res => res.json())
         .then(data => {setFilieres(data)
             console.log(data)
         })
-    },[])
+    },[token])
     const loadgroupes = () => {
-        fetch('http://localhost:8000/list_groupes.php')
+        fetch('http://localhost:8000/list_groupes.php',{
+           'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
+        }
+      )
         .then(res => res.json())
         .then(data => {setdata(data)
             console.log(data)

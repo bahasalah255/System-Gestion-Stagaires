@@ -30,7 +30,8 @@ useEffect(() => {
         fetch('http://localhost:8000/delete_user.php',{
             method: "POST",
             headers : {
-                   'Content-Type' : 'application/json'
+                   'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id: id
@@ -88,12 +89,26 @@ useEffect(() => {
         .catch(err => console.error('Erreur:', err))
     }
     useEffect(() => {
-        fetch('http://localhost:8000/users.php')
+         if (!token) return;
+        fetch('http://localhost:8000/users.php',{
+            headers : {
+                  'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
+            },    
+    }
+)
         .then(res => res.json())
         .then(data => setusers(data))
-    },[])
+    },[token])
     const loadUsers = () => {
-         fetch('http://localhost:8000/users.php')
+         if (!token) return;
+         fetch('http://localhost:8000/users.php',{
+            headers : {
+                  'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
+            },    
+    }
+)
         .then(res => res.json())
         .then(data => setusers(data))
     }
@@ -103,7 +118,8 @@ useEffect(() => {
         fetch('http://localhost:8000/user_id.php',{
             method : "POST",
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id : id
@@ -128,7 +144,8 @@ useEffect(() => {
         fetch('http://localhost:8000/edituser.php',{
             method : "POST",
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id : id,
