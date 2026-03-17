@@ -45,7 +45,8 @@ const handleEditform = (e) => {
   fetch('http://localhost:8000/editgroupe.php', {
     method : 'POST',
     headers : {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify({
   id : id,
@@ -65,7 +66,8 @@ loadgroupes()})
       fetch('http://localhost:8000/groupe_delete.php',{
           method : 'POST',
           headers : {
-             "Content-Type": "application/json"
+             "Content-Type": "application/json",
+             'Authorization': 'Bearer ' + token
           },
       
       body: JSON.stringify({
@@ -85,7 +87,8 @@ loadgroupes()})
         fetch('http://localhost:8000/add_groupe.php',{
             method : 'POST',
             headers : {
-                  'Content-Type' : 'application/json'
+                  'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
                 nom : nom,

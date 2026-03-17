@@ -11,13 +11,20 @@ function Affectation(){
     const [annee,setannee] = useState('');
     const [data,setdata] = useState([]);
     const [id,setid] = useState(null);
+    const [token,settoken] = useState('');
+    useEffect(() => {
+      const userData = localStorage.getItem('user');
+      const user1 = JSON.parse(userData);
+      settoken(user1.token)
+    }, []);
     const Editsub = (e,id) => {
         e.preventDefault()
         setid(id)
         fetch('http://localhost:8000/affection_id.php',{
             method : "POST",
             headers : {
-                 "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify ({
                 id : id
@@ -38,7 +45,8 @@ function Affectation(){
         fetch('http://localhost:8000/editaffection.php',{
             method : "POST",
             headers : {
-                 'Content-Type' : 'application/json'
+                 'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id: id,
@@ -59,22 +67,47 @@ function Affectation(){
     })
     }
     useEffect(() => {
-        fetch('http://localhost:8000/formateur.php')
+        if (!token) return ;
+        fetch('http://localhost:8000/formateur.php',{
+             headers : {
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
+            }
+
+        }
+    )
         .then(res => res.json())
         .then(data => setdataform(data))
-        fetch('http://localhost:8000/list_groupes.php')
+        fetch('http://localhost:8000/list_groupes.php',{
+            headers : {
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
+            }
+
+        }
+    )
+        
         .then(res => res.json())
         .then(data => setdatagroup(data))
-        fetch('http://localhost:8000/module.php')
+        fetch('http://localhost:8000/module.php',{
+            headers : {
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
+            }
+
+        }
+    )
+        
         .then(res => res.json())
         .then(data => setdatamodule(data))
-    },[])
+    },[token])
     const handleadd = (e) => {
         e.preventDefault()
         fetch('http://localhost:8000/addAffec.php',{
             method : 'POST',
             headers : {
-                 "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 formateur : formateur,
@@ -93,12 +126,29 @@ function Affectation(){
     })
     }
     useEffect(() => {
-        fetch('http://localhost:8000/affectation.php')
+        if (!token) return ;
+        fetch('http://localhost:8000/affectation.php',{
+            headers : {
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
+            }
+
+        }
+    )
+        
         .then(res => res.json())
         .then(data => setdata(data))
-    },[])
+    },[token])
     const loadaffec = () => {
-         fetch('http://localhost:8000/affectation.php')
+         fetch('http://localhost:8000/affectation.php',{
+            headers : {
+                 "Content-Type": "application/json",
+                  'Authorization': 'Bearer ' + token
+            }
+
+        }
+    )
+         
         .then(res => res.json())
         .then(data => setdata(data))
     }
@@ -106,7 +156,8 @@ function Affectation(){
         fetch('http://localhost:8000/delete-affection.php',{
             method : "POST" ,
             headers : {
-                 "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                 'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id : id
