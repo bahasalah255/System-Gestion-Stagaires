@@ -162,7 +162,14 @@ loadstagires()})
    },[])
    */
    useEffect(() => {
-     fetch('http://localhost:8000/list_groupes.php')
+     fetch('http://localhost:8000/list_groupes.php',{
+      headers : {
+        'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + userdata.token
+      }
+     }
+   
+  )
      
     .then(response => 
         response.json())
