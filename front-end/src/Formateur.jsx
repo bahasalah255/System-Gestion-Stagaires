@@ -9,8 +9,22 @@ function Formateur(){
     const [datauser,setdatauser] = useState([]);
     const [user,setusernom] = useState('');
     const [message,setmessage] = useState('');
+     const [token,settoken] = useState('');
+       useEffect(() => {
+      const userData = localStorage.getItem('user');
+      const user1 = JSON.parse(userData);
+      
+      settoken(user1.token)
+    }, []);
     useEffect(() => {
-        fetch('http://localhost:8000/formateur.php')
+      if (!token) return;
+        fetch('http://localhost:8000/formateur.php',{
+          headers : {
+             'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
+          }
+        }
+      )
         .then(res => res.json())
       .then(data => {setdata(data)
         console.log(data)
@@ -20,9 +34,15 @@ function Formateur(){
           setdatauser(data)
         )
       })
-    },[])
+    },[token])
     const loadformateurs = () => {
-            fetch('http://localhost:8000/formateur.php')
+            fetch('http://localhost:8000/formateur.php',{
+              headers : {
+                 'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
+              }
+            }
+          )
         .then(res => res.json())
       .then(data => {setdata(data)
         console.log(data)
@@ -34,7 +54,8 @@ function Formateur(){
         fetch('http://localhost:8000/formateur_id.php',{
             method : 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
                 id : id
@@ -55,7 +76,9 @@ function Formateur(){
         fetch('http://localhost:8000/editformateur.php',{
             method : 'POST',
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
+
             },
             body : JSON.stringify({
                 id : id,
@@ -82,7 +105,8 @@ function Formateur(){
         fetch('http://localhost:8000/add_formateur.php',{
             method: 'POST',
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
           nom : nom,
@@ -99,7 +123,8 @@ function Formateur(){
         fetch('http://localhost:8000/delete_formateur.php',{
             method: 'POST',
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
          id : id
