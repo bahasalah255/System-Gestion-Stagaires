@@ -28,7 +28,13 @@ function Formateur(){
         .then(res => res.json())
       .then(data => {setdata(data)
         console.log(data)
-        fetch('http://localhost:8000/list_users.php')
+        fetch('http://localhost:8000/list_users.php',{
+          headers : {
+             'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
+          }
+        }
+      )
         .then(res => res.json())
         .then(data => 
           setdatauser(data)
@@ -231,7 +237,7 @@ return(
                 {data && data.map(d => {
                     return (
                         <>
-                        <tr>
+                        <tr key={d.id_formateur}>
                             <td>{d.id_formateur}</td>
                             <td>{d.nom_formateur}</td>
                             <td>{d.telephone}</td>
