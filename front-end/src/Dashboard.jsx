@@ -5,10 +5,9 @@ function Dashboard() {
   const [user, setUser] = useState(null)
   const [isopen,setisopen] = useState(true);
   const [id,setid] = useState('');
+  const [token,settoken] = useState('')
   const navigate = useNavigate()
-  const functoken = () => {
-    const token = user.token
-  }
+  
   const toggleSidebar = () => setisopen(!isopen);
   useEffect(() => {
      const userData = localStorage.getItem('user');
@@ -18,7 +17,8 @@ function Dashboard() {
         return;
     }
 
-    const user = JSON.parse(userData); // parse une seule fois
+    const user = JSON.parse(userData);
+    settoken(user.token) // parse une seule fois
     setid(user.id);
     if (user.role !== "admin") {
         navigate('/');
@@ -32,7 +32,8 @@ function Dashboard() {
     fetch('http://localhost:8000/logout.php',{
       method : 'POST',
       headers : {
-         'Content-Type' : 'application/json'
+         'Content-Type' : 'application/json',
+         'Authorization': 'Bearer ' + token
       },
       body : JSON.stringify({
         id : id
