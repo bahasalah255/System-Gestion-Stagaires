@@ -9,7 +9,13 @@ function Module(){
     const [message,setmessage] = useState('');
     const [id,setid] = useState('');
     const [search,setsearch] = useState('');
-    const [filtreby, setfilireby] = useState('all')
+    const [filtreby, setfilireby] = useState('all');
+    const [token,settoken] = useState('');
+               useEffect(() => {
+              const userData = localStorage.getItem('user');
+              const user1 = JSON.parse(userData);
+              settoken(user1.token)
+            }, []);
     const filitresmodules = data.filter(d => {
         const matchename = d.nom_module.toLowerCase().includes(search.toLowerCase())
         const matchefilire = 
@@ -23,7 +29,8 @@ function Module(){
         fetch('http://localhost:8000/module_id.php',{
             method: "POST",
             headers : {
-                 'Content-Type' : 'application/json'
+                 'Content-Type' : 'application/json',
+                 'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id: id
@@ -45,7 +52,8 @@ function Module(){
         fetch('http://localhost:8000/editmodule.php',{
             method : "POST",
             headers : {
-                 'Content-Type' : 'application/json'
+                 'Content-Type' : 'application/json',
+                 'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id: id,
@@ -69,7 +77,8 @@ function Module(){
         fetch('http://localhost:8000/delete_module.php',{
             method: "POST",
             headers : {
-                   'Content-Type' : 'application/json'
+                   'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id: id
@@ -87,13 +96,26 @@ function Module(){
     })
     }
     useEffect(() => {
-        fetch('http://localhost:8000/module.php')
+        if (!token) return ;
+        fetch('http://localhost:8000/module.php',{
+            headers : {
+                   'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
+            }
+        }
+    )
         .then(res => res.json())
         .then(data =>setdata(data))
-        console.log(typeof data);
-    },[])
+        ;
+    },[token])
     const loadmodule = () => {
-        fetch('http://localhost:8000/module.php')
+        fetch('http://localhost:8000/module.php',{
+            headers : {
+                 'Content-Type' : 'application/json',
+                   'Authorization': 'Bearer ' + token
+            }
+        }
+    )
         .then(res => res.json())
         .then(data =>setdata(data))
     }
@@ -102,7 +124,8 @@ function Module(){
         fetch('http://localhost:8000/add_module.php',{
             method : 'POST',
             headers : {
-                  'Content-Type' : 'application/json'
+                  'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
                 nom : nom,
@@ -122,12 +145,19 @@ function Module(){
         .catch(err => console.error('Erreur:', err))
     }
      useEffect(() => {
-            fetch('http://localhost:8000/filiere.php')
+        if(!token) return;
+            fetch('http://localhost:8000/filiere.php',{
+                headers : {
+                     'Content-Type' : 'application/json',
+                  'Authorization': 'Bearer ' + token
+                }
+            }
+        )
             .then(res => res.json())
             .then(data => {setfilieredata(data)
                 console.log(data)
             })
-        },[filiere])
+        },[filiere,token])
 
     return(
         <>
@@ -197,7 +227,7 @@ function Module(){
         <div className='stagaires'>
              <input type='text' className='form-control mb-2' placeholder='Search Bar' onChange={(e) => setsearch(e.target.value)}/>
              <select className='form-select ' onChange={(e) => setfilireby(e.target.value)}>
-                 <option value="all" selected>--- All -- </option>
+                 <option value="all">--- All -- </option>
                         {filieredata && filieredata.map(filiere => {
                             return(
                                 <>

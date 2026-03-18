@@ -9,16 +9,20 @@ function Parametres(){
     const [newpassword,setnewpassword] = useState('');
     const [error , seterror] = useState('');
     const [message,setmessage] = useState('');
+    const [token,settoken] = useState('');
       useEffect(() => {
       const userData = localStorage.getItem('user');
       const user1 = JSON.parse(userData);
       setid(user1.id)
+      settoken(user1.token)
     }, []);
     useEffect(() => {
+        if(!token) return;
         fetch('http://localhost:8000/user_id.php',{
             method : "POST",
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                 'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id : id
@@ -35,14 +39,15 @@ function Parametres(){
         
         })
     })
-    },[id])
+    },[id,token])
     const handleEdit = (e) => {
         console.log(password)
          e.preventDefault()
         fetch('http://localhost:8000/edituser_dashbord.php',{
             method : "POST",
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                 'Authorization': 'Bearer ' + token
             },
             body : JSON.stringify({
                 id : id,

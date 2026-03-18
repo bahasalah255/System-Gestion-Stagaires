@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $user = verifyToken($connexion);
 if($user['role'] == 'admin'){
 $data = json_decode(file_get_contents("php://input"), true);
-$nom = $dataAuthorization['nom'];
+$nom = $data['nom'];
 $filiere = $data['filiere'];
 $coeficient = $data['coeficient'];
 $masse = $data['masse'];
