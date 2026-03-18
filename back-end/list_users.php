@@ -11,13 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 $user = verifyToken($connexion);
 if($user['role'] == 'admin'){
-$data = json_decode(file_get_contents("php://input"), true);
 $stmt = $connexion->prepare('SELECT id_user,nom FROM user where role = "formateur" ');
 $stmt->execute([]);
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($data);
 } else {
-    echo json_encode([http_response_code(405)]);
+    http_response_code(403);
+    echo json_encode(['error' => 'Accès refusé']);
 }
 
 
