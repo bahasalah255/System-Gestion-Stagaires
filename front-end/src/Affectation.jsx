@@ -68,7 +68,7 @@ function Affectation(){
     }
     useEffect(() => {
         if (!token) return ;
-        fetch('http://localhost:8000/formateur.php',{
+        fetch('http://localhost:8000/users.php',{
              headers : {
                  "Content-Type": "application/json",
                   'Authorization': 'Bearer ' + token
@@ -77,7 +77,8 @@ function Affectation(){
         }
     )
         .then(res => res.json())
-        .then(data => setdataform(data))
+        .then(data => {setdataform(data)
+        })
         fetch('http://localhost:8000/list_groupes.php',{
             headers : {
                  "Content-Type": "application/json",
@@ -117,12 +118,36 @@ function Affectation(){
             })
         }
     )
-    .then(res => res.json())
-    .then(data => {setmessage(data.message)
+    .then(async (res) => {
+        const text = await res.text();
+        let payload = {};
+
+        if (text) {
+            try {
+                payload = JSON.parse(text);
+            } catch {
+                payload = { error: text };
+            }
+        }
+
+        if (!res.ok) {
+            throw new Error(payload.details || payload.error || `HTTP ${res.status}`);
+        }
+
+        return payload;
+    })
+    .then(data => {
+        setmessage(data.message || 'Affectation ajoutée');
         loadaffec()
         setTimeout(() => {
             setmessage('')
         }, 3000);
+    })
+    .catch((err) => {
+        setmessage(err.message || 'Erreur lors de l’ajout');
+        setTimeout(() => {
+            setmessage('');
+        }, 4000);
     })
     }
     useEffect(() => {
@@ -197,7 +222,7 @@ function Affectation(){
                         {dataform && dataform.map(d => {
                             return(
                                 <>
-                                <option value={d.id_formateur}>{d.nom_formateur}</option>
+                                <option value={d.id_user}>{d.nom}</option>
                                 </>
                             );
                         })}
@@ -325,7 +350,7 @@ function Affectation(){
                         {dataform && dataform.map(d => {
                             return(
                                 <>
-                                <option value={d.id_formateur}>{d.nom_formateur}</option>
+                                <option value={d.id_user}>{d.nom}</option>
                                 </>
                             );
                         })}

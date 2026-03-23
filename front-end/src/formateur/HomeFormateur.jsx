@@ -1,10 +1,32 @@
 import React,{useState, useEffect} from 'react';
 function HomeFormateur(){
     const [user, setUser] = useState('');
+    const [id,setid] = useState(null);
     useEffect(() => {
         const us = JSON.parse(localStorage.getItem('user'))
+         if (!us) return; 
         setUser(us.nom)
+        setid(us.id)
+        if(us.id){
+        fetch('http://localhost:8000/home.php',{
+            method: "POST",
+            headers : {
+                   'Content-Type' : 'application/json',
+            },
+            body : JSON.stringify({
+                id: id
+            })
+        }
+    )
+    .then(res => res.json())
+    .then(data => {
+        //console.log(data.message)
+       console.log(data)
+    })
+    }
+        
     },[])
+    
     return(
         <>
         <h1 className="fw-bold"> 👋 Welcome {user} !</h1>
