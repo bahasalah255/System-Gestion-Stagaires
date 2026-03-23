@@ -14,9 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $user = verifyToken($connexion);
 if($user['role'] == 'admin'){
 $data = json_decode(file_get_contents("php://input"), true);
-$id = $data['id'];
+$id = $user['id'];
 $stmt = $connexion->prepare('UPDATE user set token = ? , is_connected = ? where id_user = ?');
 $stmt->execute([null,0,$id]);
+echo json_encode(['message' => 'Logged out successfully']);
+
 }
 else {
     http_response_code(403);

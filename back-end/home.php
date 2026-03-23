@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+$data = json_decode(file_get_contents("php://input"), true);
+$id = $data['id'];
 $stmt = $connexion->prepare('select count(id_stagaire) as counter from stagaire');
 $stmt->execute([]);
 $data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -26,6 +28,9 @@ $data += $ftp->fetch(PDO::FETCH_ASSOC);
 $pdo = $connexion->prepare('select count(id_user) as counter3 from user where is_delete = 0');
 $pdo->execute([]);
 $data += $pdo->fetch(PDO::FETCH_ASSOC);
+$sto = $connexion->prepare("select count(id_formateur) from afectation where id_formateur = ?");
+$sto->execute([$id]);
+$data += $sto->fetch(PDO::FETCH_ASSOC);
 echo json_encode($data);
 
 
