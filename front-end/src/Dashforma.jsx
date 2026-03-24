@@ -4,6 +4,7 @@ function Dashforma(){
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
   const [isopen,setisopen] = useState(true);
+  const [token,settoken] = useState(null)
   const toggleSidebar = () => setisopen(!isopen);
   const [id,setid] = useState('');
   useEffect(() => {
@@ -16,6 +17,7 @@ function Dashforma(){
     }
       const user = JSON.parse(userData);
       setid(user.id);
+      settoken(user.token)
         if(user.role != "formateur" && user.role != "admin"){
           navigate("/")
           return ;
@@ -28,10 +30,13 @@ function Dashforma(){
   }, [])
 
   const handleLogout = () => {
+    
     fetch('http://localhost:8000/logout.php',{
       method : 'POST',
       headers : {
-         'Content-Type' : 'application/json'
+         'Content-Type' : 'application/json',
+         'Authorization': 'Bearer ' + token
+
       },
       body : JSON.stringify({
         id : id
@@ -39,10 +44,16 @@ function Dashforma(){
       })
     }
   )
-    
-    
-    localStorage.removeItem('user') // Supprime la session
+  .then(res => res.json())
+  .then(data => {
+    if(data){
+      localStorage.removeItem('user') // Supprime la session
     navigate('/')
+    }
+  })
+    
+    
+    
   }
   
   const linkStyle = ({ isActive }) => ({
@@ -74,6 +85,9 @@ function Dashforma(){
               </NavLink>
               <NavLink to='/dashboard-formateur/groupes' style={linkStyle}>
               <i className="bi bi-collection fs-4"></i> {isopen && "Groupes"}
+              </NavLink>
+               <NavLink to='/dashboard-formateur/stagaires' style={linkStyle}>
+              <i className="bi bi-mortarboard fs-4"></i> {isopen && "Stagaires"}
               </NavLink>
                <NavLink to='/dashboard-formateur/modules' style={linkStyle}>
                  <i className="bi bi-book fs-4"></i> {isopen && "Modules"}

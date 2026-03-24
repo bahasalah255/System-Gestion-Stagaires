@@ -21,6 +21,7 @@ import Affectation from './Affectation.jsx'
 import Users from './Users.jsx'
 import DeleteUsers from './DeleteUsers.jsx'
 import Parametres from './Parametres.jsx'
+import StagairesForm from './formateur/StagairesForm.jsx';
 
 function App() {
   
@@ -45,6 +46,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard-formateur' element={<Dashforma/>}>
                   <Route path='home' element={<HomeFormateur/>}/>
+                  <Route path='stagaires' element={<StagairesForm/>}/>
                   <Route path='groupes' element={<GroupeForma/>}/>
                   <Route path='modules' element={<ModuleForma/>}/>
                   <Route path='notes' element={<NotesForma/>}/>

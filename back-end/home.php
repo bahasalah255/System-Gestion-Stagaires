@@ -28,7 +28,12 @@ $data += $ftp->fetch(PDO::FETCH_ASSOC);
 $pdo = $connexion->prepare('select count(id_user) as counter3 from user where is_delete = 0');
 $pdo->execute([]);
 $data += $pdo->fetch(PDO::FETCH_ASSOC);
-$sto = $connexion->prepare("select count(id_formateur) from afectation where id_formateur = ?");
+$sto = $connexion->prepare("SELECT 
+    count(s.id_stagaire) As Stagairecount
+FROM stagaire s
+INNER JOIN afectation a ON s.groupe_id = a.id_groupe
+INNER JOIN filiere b on s.filiere = b.id_filiere
+WHERE a.id_formateur = ?");
 $sto->execute([$id]);
 $data += $sto->fetch(PDO::FETCH_ASSOC);
 echo json_encode($data);
