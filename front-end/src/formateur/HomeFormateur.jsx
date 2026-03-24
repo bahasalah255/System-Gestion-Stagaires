@@ -2,12 +2,15 @@ import React,{useState, useEffect} from 'react';
 function HomeFormateur(){
     const [user, setUser] = useState('');
     const [id,setid] = useState(null);
+    const [data,setdata] = useState(null)
     useEffect(() => {
         const us = JSON.parse(localStorage.getItem('user'))
          if (!us) return; 
         setUser(us.nom)
         setid(us.id)
-        if(us.id){
+    },[])
+    useEffect(() => {
+        if (!id) return ;
         fetch('http://localhost:8000/home.php',{
             method: "POST",
             headers : {
@@ -21,11 +24,10 @@ function HomeFormateur(){
     .then(res => res.json())
     .then(data => {
         //console.log(data.message)
-       console.log(data)
+       //console.log(data)
+       setdata(data)
     })
-    }
-        
-    },[])
+    },[id])
     
     return(
         <>
@@ -35,9 +37,9 @@ function HomeFormateur(){
         <div className="col-lg-3 col-md-6 col-sm-12">
             <div className="card">
                 <div className="card-body">
-                   <i className="bi bi-person-lines-fill text-primary fs-1"></i>
+                   <i className="bi bi-mortarboard text-primary fs-1"></i>
                    <h4>Vos stagiaires</h4>
-                   <p className="text-center fs-2">0</p>
+                   <p className="text-center fs-2">{data && data.Stagairecount}</p>
                 </div>
             </div>
         </div>
@@ -62,7 +64,7 @@ function HomeFormateur(){
     <div className="col-lg-3 col-md-6 col-sm-12">
             <div className="card">
                 <div className="card-body">
-                    <i class="bi bi-journal-bookmark-fill text-warning fs-1"></i>
+                    <i className="bi bi-journal-bookmark-fill text-warning fs-1"></i>
                     <h4>Vos Modules</h4>
                      <p className="text-center fs-2">0</p>
                 </div>
