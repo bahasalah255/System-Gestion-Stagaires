@@ -36,7 +36,7 @@ function Login() {
          else if(data.status === "ok" && data.user.role === 'formateur') {
             localStorage.setItem('user',JSON.stringify(data.user))
             setMessage("Connexion réussie !");
-            navigate('/dashboard-formateur');   
+            navigate('/dashboard-formateur/home');   
          
       }
       else if(data.status === "ok" && data.user.role === 'stagaire') {
