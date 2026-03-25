@@ -83,6 +83,9 @@ function Dashforma(){
               <NavLink to='/dashboard-formateur/home' end style={linkStyle}>
                  <i className="bi bi-speedometer2 fs-4"></i>  {isopen && 'Home'}
               </NavLink>
+              <NavLink to='/dashboard-formateur/cahier' style={linkStyle}>
+              <i className="bi bi-collection fs-4"></i> {isopen && "Cahier Text"}
+              </NavLink>
               <NavLink to='/dashboard-formateur/groupes' style={linkStyle}>
               <i className="bi bi-collection fs-4"></i> {isopen && "Groupes"}
               </NavLink>

@@ -13,14 +13,11 @@ $user = verifyToken($connexion);
 if($user['role'] == 'formateur'){
     $data = json_decode(file_get_contents("php://input"), true);
     $id = $data['id'];
-    $stmt = $connexion->prepare('SELECT
+    $stmt = $connexion->prepare('SELECT DISTINCT
     s.id_module,
     s.nom_module,
     s.coeficient,
-    s.masse_horaire,
-    a.id_formateur,
-    a.annee,
-    a.id
+    s.masse_horaire
 FROM module s
 INNER JOIN afectation a ON s.id_module = a.id_module
 WHERE a.id_formateur = ?');
