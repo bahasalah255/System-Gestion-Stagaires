@@ -13,17 +13,19 @@ $user = verifyToken($connexion);
 if($user['role'] == 'formateur'){
     $data = json_decode(file_get_contents("php://input"), true);
     $id = $data['id'];
-    $stmt = $connexion->prepare('SELECT
+    $stmt = $connexion->prepare('SELECT 
     s.id_module,
     s.nom_module,
-    s.coeficient,
-    s.masse_horaire,
-    a.id_formateur,
-    a.annee,
-    a.id
+    c.nom_group,
+    a.date,
+    a.heure_debut,
+    a.heure_fin,
+    a.contenu,
+    a.statut
 FROM module s
-INNER JOIN afectation a ON s.id_module = a.id_module
-WHERE a.id_formateur = ?');
+INNER JOIN cahier_text a ON s.id_module = a.id_module
+INNER JOIN groupe c ON a.id_group = c.id_group 
+where a.id_formateur = ?');
     $stmt->execute([$id]);
     $datac = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($datac);
