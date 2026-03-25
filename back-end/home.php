@@ -36,6 +36,12 @@ INNER JOIN filiere b on s.filiere = b.id_filiere
 WHERE a.id_formateur = ?");
 $sto->execute([$id]);
 $data += $sto->fetch(PDO::FETCH_ASSOC);
+$pdosta = $connexion->prepare("SELECT count(DISTINCT id_groupe) AS countergroupes from afectation where id_formateur = ?");
+$pdosta->execute([$id]);
+$data += $pdosta->fetch(PDO::FETCH_ASSOC);
+$pdostatment = $connexion->prepare("SELECT count(DISTINCT id_module) AS module from afectation where id_formateur = ?");
+$pdostatment->execute([$id]);
+$data += $pdostatment->fetch(PDO::FETCH_ASSOC);
 echo json_encode($data);
 
 

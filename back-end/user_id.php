@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 $user = verifyToken($connexion);
-if($user['role'] == 'admin'){
+if($user['role'] == 'admin' || $user['role'] == 'formateur'){
 $data = json_decode(file_get_contents("php://input"), true);
 $id = $data['id'];
 $stmt = $connexion->prepare("SELECT * FROM user where is_delete = 0 and id_user = ?");

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 $error = '';
 $user = verifyToken($connexion);
-if($user['role'] == 'admin'){
+if($user['role'] == 'admin' || $user['role'] == 'formateur'){
 try {
     $data = json_decode(file_get_contents("php://input"), true);
     $id = $data['id'];

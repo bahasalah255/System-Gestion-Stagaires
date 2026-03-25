@@ -57,7 +57,7 @@ function HomeFormateur(){
                 <div className="card-body">
                     <i className="bi bi-diagram-3-fill text-info fs-1"></i>
                     <h4>Vos Groupes</h4>
-                     <p className="text-center fs-2">0</p>
+                     <p className="text-center fs-2">{data && data.countergroupes}</p>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ function HomeFormateur(){
                 <div className="card-body">
                     <i className="bi bi-journal-bookmark-fill text-warning fs-1"></i>
                     <h4>Vos Modules</h4>
-                     <p className="text-center fs-2">0</p>
+                     <p className="text-center fs-2">{data && data.module}</p>
                 </div>
             </div>
         </div>
