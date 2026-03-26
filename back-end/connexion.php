@@ -15,5 +15,10 @@ try {
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
     die(json_encode(['error' => 'Connexion échouée : ' . $e->getMessage()]));
+     http_response_code(500);
+    echo json_encode([
+        'error' => 'Service unavailable'
+    ]);
+    exit;
 }
 ?>

@@ -104,6 +104,10 @@ function Affectation(){
     },[token])
     const handleadd = (e) => {
         e.preventDefault()
+        if(!groupe){
+            alert('veuillez choisir un groupe')
+            return;
+        }
         fetch('http://localhost:8000/addAffec.php',{
             method : 'POST',
             headers : {
