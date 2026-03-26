@@ -3,7 +3,6 @@ import Delete from './Delete.jsx';
 import {   NavLink } from 'react-router-dom'
 function Users(){
     const [users,setusers] = useState([])
-    const [ishide,setishide] = useState(true)
     const [message,setmessage] = useState('');
     const [nom ,setnom] = useState('');
     const [prenom ,setprenom] = useState('');
@@ -50,15 +49,6 @@ useEffect(() => {
             }, 3000);
     })
     }
-    const hidepassword = (id) => {
-      setishide((pr) => ({
-        ...pr,
-        [id] : !pr[id]
-
-      })  
-    
-    )
-    };
     
    const handlAdd = (e) => {
          e.preventDefault()
@@ -250,9 +240,9 @@ return(
                         <th scope="col">Nom</th>
                         <th scope="col">Prenom</th>
                         <th scope="col">Email</th>
-                         <th scope="col">Password</th>
                         <th scope="col">Role</th>
                          <th scope="col">Date Creation</th>
+                         <th scope="col">Is connected</th>
                         <th scope="col">Actions</th>
                         
                     </tr>
@@ -269,9 +259,9 @@ return(
                         <td>{d.nom}</td>
                         <td>{d.prenom}</td>
                         <td>{d.email}</td>
-                        <td > <p style={{display : ishide[d.id_user] ? 'block' : 'none' , transition : '0.3s'}}>{d.password}</p> <button className='btn btn-white'  onClick={() => hidepassword(d.id_user)}><i className={` ${ishide[d.id_user] ? "bi bi-eye-slash-fill" : "bi bi-eye-fill" }`}></i>  </button></td>
-                        <td className={`badge badge-primary  `}>{d.role}</td>
+                        <td className={`badge badge-primary`}>{d.role}</td>
                         <td>{d.date_creation}</td>
+                        <td>{d.is_connected}</td>
                         <td>
                             <div className='d-flex justify-content-center gap-3'>
                             <button className='btn btn-info' data-bs-toggle="modal" data-bs-target="#EdituserModel" onClick={(e) => EdituserModel(e,d.id_user)}> <i className="bi bi-pencil me-1"></i></button>
