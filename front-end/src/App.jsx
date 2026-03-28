@@ -23,6 +23,7 @@ import DeleteUsers from './DeleteUsers.jsx'
 import Parametres from './Parametres.jsx'
 import StagairesForm from './formateur/StagairesForm.jsx';
 import Cahier from './formateur/Cahier.jsx'
+import Cahier1 from './Cahier.jsx'
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
           <Route path='users' element={<Users/>}/>
           <Route path='formateur' element={<Formateur/>}/>
           <Route path='groupe' element={<Groupe/>}/>
+           <Route path='cahier' element={<Cahier1/>}/>
           <Route path='filieres' element={<Filiere/>}/>
           <Route path='modules' element={<Module/>}/>
           <Route path='affectation' element={<Affectation/>}/>

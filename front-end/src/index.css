@@ -186,3 +186,11 @@ thead tr {
   border-radius: 8px;
 
 }
+.btn-valider {
+  transition: 0.3s;
+}
+.btn-valider:hover {
+  transform: translateY(-5px);
+  background-color: rgb(35, 190, 35);
+  color: white;
+}
