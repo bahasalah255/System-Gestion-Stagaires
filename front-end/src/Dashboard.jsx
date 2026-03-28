@@ -84,6 +84,9 @@ function Dashboard() {
               <NavLink to='/dashboard/formateur' style={linkStyle}>
               <i className="bi bi-person-workspace fs-4"></i> {isopen && "Formateurs"}
               </NavLink>
+               <NavLink to='/dashboard/cahier' style={linkStyle}>
+              <i className="bi bi-person-workspace fs-4"></i> {isopen && "Cahier Text"}
+              </NavLink>
               <NavLink to='/dashboard/groupe' style={linkStyle}>
               <i className="bi bi-collection fs-4"></i> {isopen && "Groupes"}
               </NavLink>
