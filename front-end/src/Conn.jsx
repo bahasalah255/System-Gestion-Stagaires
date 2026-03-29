@@ -1,9 +1,10 @@
 import React,{useState,useEffect} from 'react'
+import { BASE_URL } from './config';
 function Conn(){
     const [data,setData] = useState(null);
     const [error,setError] = useState(null);
     useEffect(() => {
-        fetch("http://localhost:8000/connexion.php")
+        fetch(`${BASE_URL}/connexion.php`)
             .then(res => res.json())
             .then(data => setData(data))
             .catch(err => setError(err));

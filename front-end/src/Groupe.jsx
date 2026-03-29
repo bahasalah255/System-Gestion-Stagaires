@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import { BASE_URL } from './config';
 function Groupe(){
     const [data,setdata] = useState('');
     const [filiere,setFiliere] = useState(null);
@@ -16,7 +17,7 @@ function Groupe(){
        setid(id)
       e.preventDefault();
       console.log(id)
-      fetch('http://localhost:8000/groupe.php', {
+      fetch(`${BASE_URL}/groupe.php`, {
         method : 'POST',
         headers : {
           'Content-Type' : 'application/json'
@@ -42,7 +43,7 @@ function Groupe(){
 const handleEditform = (e) => {
   e.preventDefault();
   
-  fetch('http://localhost:8000/editgroupe.php', {
+  fetch(`${BASE_URL}/editgroupe.php`, {
     method : 'POST',
     headers : {
       "Content-Type": "application/json",
@@ -63,7 +64,7 @@ loadgroupes()})
 }
      const handledelete = (id) => {
       console.log(id);
-      fetch('http://localhost:8000/groupe_delete.php',{
+      fetch(`${BASE_URL}/groupe_delete.php`,{
           method : 'POST',
           headers : {
              "Content-Type": "application/json",
@@ -84,7 +85,7 @@ loadgroupes()})
     });
 };
     const handlAdd = () => {
-        fetch('http://localhost:8000/add_groupe.php',{
+        fetch(`${BASE_URL}/add_groupe.php`,{
             method : 'POST',
             headers : {
                   'Content-Type' : 'application/json',
@@ -104,7 +105,7 @@ loadgroupes()})
     }
     useEffect(() => {
       if(!token) return ;
-        fetch('http://localhost:8000/list_groupes.php',{
+        fetch(`${BASE_URL}/list_groupes.php`,{
            headers : {'Content-Type' : 'application/json',
                    'Authorization': 'Bearer ' + token
            }
@@ -117,7 +118,7 @@ loadgroupes()})
     },[token])
     useEffect(() => {
       if (!token) return ;
-        fetch('http://localhost:8000/filiere.php',{
+        fetch(`${BASE_URL}/filiere.php`,{
              headers : {'Content-Type' : 'application/json',
                    'Authorization': 'Bearer ' + token
              }
@@ -129,7 +130,7 @@ loadgroupes()})
         })
     },[token])
     const loadgroupes = () => {
-        fetch('http://localhost:8000/list_groupes.php',{
+        fetch(`${BASE_URL}/list_groupes.php`,{
            'Content-Type' : 'application/json',
                    'Authorization': 'Bearer ' + token
         }

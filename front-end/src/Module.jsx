@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import { BASE_URL } from './config';
 function Module(){
     const [nom,setnom] = useState('');
     const [coeficient,setcoeficient] = useState('');
@@ -24,7 +25,7 @@ function Module(){
     })
     const Editsub  = (e,id) => {
         setid(id);
-        fetch('http://localhost:8000/module_id.php',{
+        fetch(`${BASE_URL}/module_id.php`,{
             method: "POST",
             headers : {
                  'Content-Type' : 'application/json',
@@ -47,7 +48,7 @@ function Module(){
     }
     const handlEdit = (e) => {
         e.preventDefault();
-        fetch('http://localhost:8000/editmodule.php',{
+        fetch(`${BASE_URL}/editmodule.php`,{
             method : "POST",
             headers : {
                  'Content-Type' : 'application/json',
@@ -72,7 +73,7 @@ function Module(){
     })
     }
     const handledelete = (id) => {
-        fetch('http://localhost:8000/delete_module.php',{
+        fetch(`${BASE_URL}/delete_module.php`,{
             method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -95,7 +96,7 @@ function Module(){
     }
     useEffect(() => {
         if (!token) return ;
-        fetch('http://localhost:8000/module.php',{
+        fetch(`${BASE_URL}/module.php`,{
             headers : {
                    'Content-Type' : 'application/json',
                    'Authorization': 'Bearer ' + token
@@ -107,7 +108,7 @@ function Module(){
         ;
     },[token])
     const loadmodule = () => {
-        fetch('http://localhost:8000/module.php',{
+        fetch(`${BASE_URL}/module.php`,{
             headers : {
                  'Content-Type' : 'application/json',
                    'Authorization': 'Bearer ' + token
@@ -119,7 +120,7 @@ function Module(){
     }
     const handlAdd = (e) => {
          e.preventDefault()
-        fetch('http://localhost:8000/add_module.php',{
+        fetch(`${BASE_URL}/add_module.php`,{
             method : 'POST',
             headers : {
                   'Content-Type' : 'application/json',
@@ -144,7 +145,7 @@ function Module(){
     }
      useEffect(() => {
         if(!token) return;
-            fetch('http://localhost:8000/filiere.php',{
+            fetch(`${BASE_URL}/filiere.php`,{
                 headers : {
                      'Content-Type' : 'application/json',
                   'Authorization': 'Bearer ' + token

@@ -26,9 +26,7 @@ FROM module s
 INNER JOIN cahier_text a ON s.id_module = a.id_module
 INNER JOIN groupe c ON a.id_group = c.id_group 
 where a.id_formateur = ?
-ORDER BY a.id 
-desc
-LIMIT 4
+
 ');
     $stmt->execute([$id]);
     $datac = $stmt->fetchAll(PDO::FETCH_ASSOC);

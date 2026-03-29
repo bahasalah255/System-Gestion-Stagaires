@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import { BASE_URL } from './config';
 function Cahier1(){
  const [data,setdata] = useState([])
         const [token,settoken] = useState(null);
@@ -29,7 +30,7 @@ function Cahier1(){
         },[])
         useEffect(() => {
             if (!id || !token) return;
-          fetch('http://localhost:8000/cahier_text.php',{
+          fetch(`${BASE_URL}/cahier_text.php`,{
         method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -43,7 +44,7 @@ function Cahier1(){
         //console.log(test)
      })
      .catch(error => console.log(error))
-     fetch('http://localhost:8000/module.php', {
+    fetch(`${BASE_URL}/module.php`, {
            method : 'POST',
            headers : {
              "Content-Type": "application/json",
@@ -56,7 +57,7 @@ function Cahier1(){
            //console.log(test)
         })
         .catch(error => console.log(error))
-fetch('http://localhost:8000/list_groupes.php', {
+fetch(`${BASE_URL}/list_groupes.php`, {
            method : 'POST',
            headers : {
              "Content-Type": "application/json",
@@ -69,7 +70,7 @@ fetch('http://localhost:8000/list_groupes.php', {
            //console.log(test)
         })
         .catch(error => console.log(error))
-    fetch('http://localhost:8000/users.php',{
+    fetch(`${BASE_URL}/users.php`,{
         method : 'POST',
            headers : {
              "Content-Type": "application/json",
@@ -89,7 +90,7 @@ fetch('http://localhost:8000/list_groupes.php', {
         ...prev,
         [id]: true
         }));
-         fetch('http://localhost:8000/change_status.php',{
+         fetch(`${BASE_URL}/change_status.php`,{
         method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -110,7 +111,7 @@ fetch('http://localhost:8000/list_groupes.php', {
      })
     }
     const loadcahier = () => {
-        fetch('http://localhost:8000/cahier_text.php',{
+        fetch(`${BASE_URL}/cahier_text.php`,{
         method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -126,7 +127,7 @@ fetch('http://localhost:8000/list_groupes.php', {
     }
     const handleadd = (e) => {
            e.preventDefault()
-        fetch('http://localhost:8000/add_seance1.php',{
+        fetch(`${BASE_URL}/add_seance1.php`,{
             method : 'POST',
              headers : {
              "Content-Type": "application/json",

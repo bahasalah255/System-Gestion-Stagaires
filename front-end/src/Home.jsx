@@ -3,6 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   PieChart, Pie, Cell, ResponsiveContainer,RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
 } from 'recharts';
+import { BASE_URL } from './config';
 
 function Home(){
 const [user,setUser] = useState('');
@@ -17,14 +18,14 @@ const [datacount,setdatacount] = useState();
 const [filieres,setfiliere] = useState(null);
 const [users , setusers] = useState(null)
 useEffect(() => {
-    fetch('http://localhost:8000/count_groupes.php')
+    fetch(`${BASE_URL}/count_groupes.php`)
     .then(res => res.json())
     .then(data => {
         setdata(data)
     })
 },[])
 useEffect(() => {
-     fetch('http://localhost:8000/count_stagaires.php')
+    fetch(`${BASE_URL}/count_stagaires.php`)
     .then(res => res.json())
     .then(data => {
         setdatas(data)
@@ -66,7 +67,7 @@ useEffect(() => {
     setUser(us.nom)
 },[])
 useEffect(() => {
-    fetch('http://localhost:8000/home.php')
+    fetch(`${BASE_URL}/home.php`)
     .then(response => response.json())
     .then(data => {
         setStagaires(data.counter)

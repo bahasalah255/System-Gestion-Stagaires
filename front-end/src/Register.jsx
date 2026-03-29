@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from './config';
 function Register(){
     const [nom,setNom] = useState('');
     const [prenom,setPrenom] = useState('');
@@ -8,7 +9,7 @@ function Register(){
     const [password,setPassword] = useState('');
      const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/register.php',{
+    fetch(`${BASE_URL}/register.php`,{
         method: 'POST',
         headers : {
              "Content-Type": "application/json"

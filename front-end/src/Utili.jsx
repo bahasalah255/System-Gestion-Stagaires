@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { BASE_URL } from './config';
 
 function Utili(){
     const [nom,setNom] = useState()
@@ -15,7 +16,7 @@ function Utili(){
     const user = localStorage.getItem('user');
     const userdata = JSON.parse(user);
     useEffect(() => {
-      fetch('http://localhost:8000/filiere.php',{
+      fetch(`${BASE_URL}/filiere.php`,{
          headers : {
           'Content-Type' : 'application/json',
         'Authorization': 'Bearer ' + userdata.token
@@ -29,7 +30,7 @@ function Utili(){
     },[])
     const navigate = useNavigate()
     const loadstagires = () => {
-      fetch('http://localhost:8000/list-stagaire.php',{
+      fetch(`${BASE_URL}/list-stagaire.php`,{
         headers : {
           'Content-Type' : 'application/json',
         'Authorization': 'Bearer ' + userdata.token
@@ -48,7 +49,7 @@ function Utili(){
       setID(id)
       e.preventDefault();
       console.log(id)
-      fetch('http://localhost:8000/stagaire.php', {
+      fetch(`${BASE_URL}/stagaire.php`, {
         method : 'POST',
         headers : {
           'Content-Type' : 'application/json',
@@ -76,7 +77,7 @@ function Utili(){
 
     const handledelete = (id) => {
       console.log(id);
-      fetch('http://localhost:8000/delete.php',{
+      fetch(`${BASE_URL}/delete.php`,{
           method : 'POST',
           headers : {
              "Content-Type": "application/json",
@@ -99,7 +100,7 @@ function Utili(){
   
      const handleSubmit = (e) => {
      e.preventDefault();
-     fetch('http://localhost:8000/add_stagaire.php',{
+    fetch(`${BASE_URL}/add_stagaire.php`,{
         method: 'POST',
         headers : {
              "Content-Type": "application/json",
@@ -123,7 +124,7 @@ function Utili(){
 const handleEditform = (e) => {
   e.preventDefault();
   
-  fetch('http://localhost:8000/editstagaire.php', {
+  fetch(`${BASE_URL}/editstagaire.php`, {
     method : 'POST',
     headers : {
       "Content-Type": "application/json"
@@ -146,7 +147,7 @@ loadstagires()})
 /*
    useEffect(() => {
     /*
-     fetch('http://localhost:8000/list-stagaire.php',{
+    fetch(`${BASE_URL}/list-stagaire.php`,{
       headers : {
           'Content-Type' : 'application/json',
         'Authorization': 'Bearer ' + userdata.token
@@ -162,7 +163,7 @@ loadstagires()})
    },[])
    */
    useEffect(() => {
-     fetch('http://localhost:8000/list_groupes.php',{
+    fetch(`${BASE_URL}/list_groupes.php`,{
       headers : {
         'Content-Type' : 'application/json',
                    'Authorization': 'Bearer ' + userdata.token

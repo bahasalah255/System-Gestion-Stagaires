@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
+import { BASE_URL } from './config';
 function Dashforma(){
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ function Dashforma(){
 
   const handleLogout = () => {
     
-    fetch('http://localhost:8000/logout.php',{
+    fetch(`${BASE_URL}/logout.php`,{
       method : 'POST',
       headers : {
          'Content-Type' : 'application/json',

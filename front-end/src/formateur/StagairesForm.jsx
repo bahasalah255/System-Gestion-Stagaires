@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import { BASE_URL } from '../config';
 function StagairesForm(){
     const [data,setdata] = useState([])
     const [token,settoken] = useState(null);
@@ -17,7 +18,7 @@ function StagairesForm(){
     },[])
     useEffect(() => {
         if (!id || !token) return;
-       fetch('http://localhost:8000/stagaires_formateur.php', {
+      fetch(`${BASE_URL}/stagaires_formateur.php`, {
     method : 'POST',
     headers : {
       "Content-Type": "application/json",
@@ -34,7 +35,7 @@ function StagairesForm(){
  })
  .catch(error => console.log(error))
 },[id, token])
- const filtre = data.filter(d => {
+ const filtre = search === '' ? data : data.filter(d => {
         const matchename = d.nom.toLowerCase().includes(search.toLowerCase())
          
         return matchename

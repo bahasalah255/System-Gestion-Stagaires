@@ -1,5 +1,6 @@
 
 import React,{useState , useEffect} from 'react'
+import { BASE_URL } from './config';
 function Formateur(){
     const [data,setdata] = useState('')
     const [nom,setnom] = useState('')
@@ -18,7 +19,7 @@ function Formateur(){
     }, []);
     useEffect(() => {
       if (!token) return;
-        fetch('http://localhost:8000/formateur.php',{
+        fetch(`${BASE_URL}/formateur.php`,{
           headers : {
              'Content-Type' : 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -28,7 +29,7 @@ function Formateur(){
         .then(res => res.json())
       .then(data => {setdata(data)
         console.log(data)
-        fetch('http://localhost:8000/list_users.php',{
+        fetch(`${BASE_URL}/list_users.php`,{
           headers : {
              'Content-Type' : 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -42,7 +43,7 @@ function Formateur(){
       })
     },[token])
     const loadformateurs = () => {
-            fetch('http://localhost:8000/formateur.php',{
+            fetch(`${BASE_URL}/formateur.php`,{
               headers : {
                  'Content-Type' : 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -57,7 +58,7 @@ function Formateur(){
     }
     const Edit = (id) => {
         setID(id)
-        fetch('http://localhost:8000/formateur_id.php',{
+        fetch(`${BASE_URL}/formateur_id.php`,{
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json',
@@ -79,7 +80,7 @@ function Formateur(){
     }
     const EditForm = (e) => {
       e.preventDefault()
-        fetch('http://localhost:8000/editformateur.php',{
+        fetch(`${BASE_URL}/editformateur.php`,{
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json',
@@ -108,7 +109,7 @@ function Formateur(){
     }
     const handleadd = (e) => {
         e.preventDefault();
-        fetch('http://localhost:8000/add_formateur.php',{
+        fetch(`${BASE_URL}/add_formateur.php`,{
             method: 'POST',
             headers : {
                 'Content-Type' : 'application/json',
@@ -126,7 +127,7 @@ function Formateur(){
     .then(data => loadformateurs())
     }
     const deleteitem = (id) => {
-        fetch('http://localhost:8000/delete_formateur.php',{
+        fetch(`${BASE_URL}/delete_formateur.php`,{
             method: 'POST',
             headers : {
                 'Content-Type' : 'application/json',

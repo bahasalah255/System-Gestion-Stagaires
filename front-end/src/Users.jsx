@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import Delete from './Delete.jsx';
 import {   NavLink } from 'react-router-dom'
+import { BASE_URL } from './config';
 function Users(){
     const [users,setusers] = useState([])
     const [message,setmessage] = useState('');
@@ -26,7 +27,7 @@ useEffect(() => {
 }, [user]); 
     
     const handledelete = (id) => {
-        fetch('http://localhost:8000/delete_user.php',{
+        fetch(`${BASE_URL}/delete_user.php`,{
             method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -52,7 +53,7 @@ useEffect(() => {
     
    const handlAdd = (e) => {
          e.preventDefault()
-        fetch('http://localhost:8000/add_user.php',{
+        fetch(`${BASE_URL}/add_user.php`,{
             method : 'POST',
             headers : {
                   'Content-Type' : 'application/json',
@@ -80,7 +81,7 @@ useEffect(() => {
     }
     useEffect(() => {
          if (!token) return;
-        fetch('http://localhost:8000/users.php',{
+        fetch(`${BASE_URL}/users.php`,{
             headers : {
                   'Content-Type' : 'application/json',
                   'Authorization': 'Bearer ' + token
@@ -92,7 +93,7 @@ useEffect(() => {
     },[token])
     const loadUsers = () => {
          if (!token) return;
-         fetch('http://localhost:8000/users.php',{
+         fetch(`${BASE_URL}/users.php`,{
             headers : {
                   'Content-Type' : 'application/json',
                   'Authorization': 'Bearer ' + token
@@ -105,7 +106,7 @@ useEffect(() => {
     const EdituserModel = (e,id) => {
         e.preventDefault()
         setid(id)
-        fetch('http://localhost:8000/user_id.php',{
+        fetch(`${BASE_URL}/user_id.php`,{
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json',
@@ -131,7 +132,7 @@ useEffect(() => {
     }
     const handleEdit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:8000/edituser.php',{
+        fetch(`${BASE_URL}/edituser.php`,{
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json',

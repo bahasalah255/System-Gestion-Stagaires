@@ -1,5 +1,5 @@
 import React,{useState , useEffect} from 'react'
-
+import { BASE_URL } from './config';
 function Affectation(){
     const [dataform,setdataform] = useState([]);
     const [datagroup,setdatagroup] = useState([]);
@@ -20,7 +20,7 @@ function Affectation(){
     const Editsub = (e,id) => {
         e.preventDefault()
         setid(id)
-        fetch('http://localhost:8000/affection_id.php',{
+        fetch(`${BASE_URL}/affection_id.php`,{
             method : "POST",
             headers : {
                  "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function Affectation(){
     }
     const editform = (e) => {
          e.preventDefault();
-        fetch('http://localhost:8000/editaffection.php',{
+        fetch(`${BASE_URL}/aeditaffection.php`,{
             method : "POST",
             headers : {
                  'Content-Type' : 'application/json',
@@ -68,7 +68,7 @@ function Affectation(){
     }
     useEffect(() => {
         if (!token) return ;
-        fetch('http://localhost:8000/users.php',{
+        fetch(`${BASE_URL}/users.php`,{
              headers : {
                  "Content-Type": "application/json",
                   'Authorization': 'Bearer ' + token
@@ -79,7 +79,7 @@ function Affectation(){
         .then(res => res.json())
         .then(data => {setdataform(data)
         })
-        fetch('http://localhost:8000/list_groupes.php',{
+        fetch(`${BASE_URL}/list_groupes.php`,{
             headers : {
                  "Content-Type": "application/json",
                   'Authorization': 'Bearer ' + token
@@ -90,7 +90,7 @@ function Affectation(){
         
         .then(res => res.json())
         .then(data => setdatagroup(data))
-        fetch('http://localhost:8000/module.php',{
+        fetch(`${BASE_URL}/module.php`,{
             headers : {
                  "Content-Type": "application/json",
                   'Authorization': 'Bearer ' + token
@@ -108,7 +108,7 @@ function Affectation(){
             alert('veuillez choisir un groupe')
             return;
         }
-        fetch('http://localhost:8000/addAffec.php',{
+        fetch(`${BASE_URL}/addAffec.php`,{
             method : 'POST',
             headers : {
                  "Content-Type": "application/json",
@@ -156,7 +156,7 @@ function Affectation(){
     }
     useEffect(() => {
         if (!token) return ;
-        fetch('http://localhost:8000/affectation.php',{
+        fetch(`${BASE_URL}/affectation.php`,{
             headers : {
                  "Content-Type": "application/json",
                   'Authorization': 'Bearer ' + token
@@ -169,7 +169,7 @@ function Affectation(){
         .then(data => setdata(data))
     },[token])
     const loadaffec = () => {
-         fetch('http://localhost:8000/affectation.php',{
+         fetch(`${BASE_URL}/affectation.php`,{
             headers : {
                  "Content-Type": "application/json",
                   'Authorization': 'Bearer ' + token
@@ -182,7 +182,7 @@ function Affectation(){
         .then(data => setdata(data))
     }
     const handledelete = (id) => {
-        fetch('http://localhost:8000/delete-affection.php',{
+        fetch(`${BASE_URL}/delete-affection.php`,{
             method : "POST" ,
             headers : {
                  "Content-Type": "application/json",

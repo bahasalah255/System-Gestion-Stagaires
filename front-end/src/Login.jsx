@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from './config';
 
 function Login() {
   const [nom, setNom] = useState('')
@@ -14,7 +15,7 @@ function Login() {
     }
 
     // ✅ Le fetch doit être ICI, dans le handleSubmit
-    fetch('http://localhost:8000/login.php', {
+    fetch(`${BASE_URL}/login.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../config';
 function HomeFormateur(){
     const [user, setUser] = useState('');
     const [id,setid] = useState(null);
@@ -25,7 +26,7 @@ function HomeFormateur(){
     useEffect(() => {
         if (!id)  return ;
         if(!token) return;
-        fetch('http://localhost:8000/home.php',{
+        fetch(`${BASE_URL}/home.php`,{
             method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -41,7 +42,7 @@ function HomeFormateur(){
        //console.log(data)
        setdata(data)
     })
-    fetch('http://localhost:8000/cahier_text_id.php',{
+    fetch(`${BASE_URL}/cahier_text_id.php`,{
         method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
@@ -59,7 +60,7 @@ function HomeFormateur(){
        setdata1(data)
     }
 )
- fetch('http://localhost:8000/modules_formateur-dis.php', {
+ fetch(`${BASE_URL}/modules_formateur-dis.php`, {
            method : 'POST',
            headers : {
              "Content-Type": "application/json",
@@ -75,7 +76,7 @@ function HomeFormateur(){
            //console.log(test)
         })
         .catch(error => console.log(error))
-fetch('http://localhost:8000/groupes-formateur-dis.php', {
+fetch(`${BASE_URL}/groupes-formateur-dis.php`, {
            method : 'POST',
            headers : {
              "Content-Type": "application/json",
@@ -94,7 +95,7 @@ fetch('http://localhost:8000/groupes-formateur-dis.php', {
     },[id,token])
     const handleadd = (e) => {
         e.preventDefault()
-        fetch('http://localhost:8000/add_seance.php',{
+        fetch(`${BASE_URL}/add_seance.php`,{
             method : 'POST',
              headers : {
              "Content-Type": "application/json",
@@ -115,7 +116,7 @@ fetch('http://localhost:8000/groupes-formateur-dis.php', {
     
     }
     const loadsessions = () => {
-        fetch('http://localhost:8000/cahier_text_id.php',{
+        fetch(`${BASE_URL}/cahier_text_id.php`,{
         method: "POST",
             headers : {
                    'Content-Type' : 'application/json',
