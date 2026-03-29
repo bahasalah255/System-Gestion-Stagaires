@@ -19,10 +19,8 @@ function Module(){
     const filitresmodules = data.filter(d => {
         const matchename = d.nom_module.toLowerCase().includes(search.toLowerCase())
         const matchefilire = 
-        filtreby == "all" || d.filiere == filtreby 
-         
+        filtreby == "all" || d.filiere == filtreby  
         return matchefilire && matchename
-        
     })
     const Editsub  = (e,id) => {
         setid(id);
