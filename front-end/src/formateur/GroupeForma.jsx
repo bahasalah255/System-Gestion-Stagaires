@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react';
+import { BASE_URL } from '../config';
 function GroupeForma(){
      const [data,setdata] = useState([])
         const [token,settoken] = useState(null);
@@ -16,7 +17,7 @@ function GroupeForma(){
         },[])
         useEffect(() => {
             if (!id || !token) return;
-           fetch('http://localhost:8000/groupes_formateurs.php', {
+           fetch(`${BASE_URL}/groupes_formateurs.php`, {
         method : 'POST',
         headers : {
           "Content-Type": "application/json",

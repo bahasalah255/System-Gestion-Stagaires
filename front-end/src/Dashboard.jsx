@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import {  Link, NavLink, Outlet,useNavigate } from 'react-router-dom'
+import { BASE_URL } from './config';
 
 function Dashboard() {
   const [user, setUser] = useState(null)
@@ -29,7 +30,7 @@ function Dashboard() {
   }, [])
 
   const handleLogout = () => {
-    fetch('http://localhost:8000/logout.php',{
+    fetch(`${BASE_URL}/logout.php`,{
       method : 'POST',
       headers : {
          'Content-Type' : 'application/json',

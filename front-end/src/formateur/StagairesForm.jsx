@@ -1,8 +1,10 @@
 import React,{useState,useEffect} from 'react';
+import { BASE_URL } from '../config';
 function StagairesForm(){
     const [data,setdata] = useState([])
     const [token,settoken] = useState(null);
-    const [id,setid] = useState(null)
+    const [id,setid] = useState(null);
+    const [search , setsearch] = useState('');
     useEffect(() => {
         
         const user = JSON.parse(localStorage.getItem('user'));
@@ -16,7 +18,7 @@ function StagairesForm(){
     },[])
     useEffect(() => {
         if (!id || !token) return;
-       fetch('http://localhost:8000/stagaires_formateur.php', {
+      fetch(`${BASE_URL}/stagaires_formateur.php`, {
     method : 'POST',
     headers : {
       "Content-Type": "application/json",
@@ -33,12 +35,19 @@ function StagairesForm(){
  })
  .catch(error => console.log(error))
 },[id, token])
+ const filtre = search === '' ? data : data.filter(d => {
+        const matchename = d.nom.toLowerCase().includes(search.toLowerCase())
+         
+        return matchename
+        
+    })
 return(
     <>
      <h1 className='text-center fw-bold'>Gestion Des Stagaires</h1>
         <p className='text-center text-muted'>Gerez et Suivre les informations des Stagaires</p>
         <div className='utili'>
         <div className='stagaires'>
+              <input type='text' className='form-control mb-2' placeholder='Search Bar' onChange={(e) => setsearch(e.target.value)}/>
         <table className='table'>
 
              <thead>
@@ -50,7 +59,7 @@ return(
                     </tr>
                 </thead>
                 <tbody>
-            {data && data.map(user => {
+            {filtre && filtre.map(user => {
            return(
               <tr key={user.id_stagaire}>
             <td className='text-center fw-bold'>#{user.id_stagaire}</td>

@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {NavLink  } from 'react-router-dom'
 import functoken from './Dashboard.jsx'
+import { BASE_URL } from './config';
 function DeleteUsers() {
     const [users,setusers] = useState('');
      const [ishide,setishide] = useState(true);
@@ -10,7 +11,7 @@ function DeleteUsers() {
      const user = localStorage.getItem('user');
      const userdata = JSON.parse(user);
         const loadUsers = () => {
-         fetch('http://localhost:8000/list_users0.php',{
+         fetch(`${BASE_URL}/list_users0.php`,{
             headers : {
                      'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + userdata.token
@@ -22,7 +23,7 @@ function DeleteUsers() {
         .then(data => setusers(data))
     }
        useEffect(() => {
-            fetch('http://localhost:8000/list_users0.php',{
+            fetch(`${BASE_URL}/list_users0.php`,{
                 headers : {
                      'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + userdata.token
@@ -45,7 +46,7 @@ function DeleteUsers() {
     const Restaurer = (id) => {
         console.log(id)
         setid(id)
-        fetch('http://localhost:8000/Restaurer.php',{
+        fetch(`${BASE_URL}/Restaurer.php`,{
             method : "POST",
             headers : {
                  'Content-Type' : 'application/json'

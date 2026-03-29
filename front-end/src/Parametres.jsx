@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import { BASE_URL } from './config';
 function Parametres(){
     const [nom,setnom] = useState('');
     const [prenom ,setprenom] = useState('');
@@ -18,7 +19,7 @@ function Parametres(){
     }, []);
     useEffect(() => {
         if(!token) return;
-        fetch('http://localhost:8000/user_id.php',{
+        fetch(`${BASE_URL}/user_id.php`,{
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json',
@@ -43,7 +44,7 @@ function Parametres(){
     const handleEdit = (e) => {
         console.log(password)
          e.preventDefault()
-        fetch('http://localhost:8000/edituser_dashbord.php',{
+        fetch(`${BASE_URL}/edituser_dashbord.php`,{
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json',

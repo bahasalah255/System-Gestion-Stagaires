@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { BASE_URL } from './config';
 function Filiere(){
     const [data,setData] = useState('');
     const [nom , setnom] = useState('');
@@ -13,7 +14,7 @@ function Filiere(){
         }, []);
     useEffect(() => {
       if (!token) return 
-        fetch('http://localhost:8000/filiere.php',{
+        fetch(`${BASE_URL}/filiere.php`,{
           headers : {
             'Content-Type' : 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -26,7 +27,7 @@ function Filiere(){
     const handleEditform = (e) => {
   e.preventDefault();
   
-  fetch('http://localhost:8000/editfiliere.php', {
+  fetch(`${BASE_URL}/editfiliere.php`, {
     method : 'POST',
     headers : {
       "Content-Type": "application/json",
@@ -48,7 +49,7 @@ loadfiliers()})
        setid(id)
       e.preventDefault();
       console.log(id)
-      fetch('http://localhost:8000/filiere_id.php', {
+      fetch(`${BASE_URL}/filiere_id.php`, {
         method : 'POST',
         headers : {
           'Content-Type' : 'application/json',
@@ -73,7 +74,7 @@ loadfiliers()})
 };
      const handledelete = (id) => {
       console.log(id);
-      fetch('http://localhost:8000/filiere_delete.php',{
+      fetch(`${BASE_URL}/filiere_delete.php`,{
           method : 'POST',
           headers : {
              "Content-Type": "application/json",
@@ -94,7 +95,7 @@ loadfiliers()})
     });
 };
  const loadfiliers = () => {
-        fetch('http://localhost:8000/filiere.php',{
+        fetch(`${BASE_URL}/filiere.php`,{
           headers : {
             'Content-Type' : 'application/json',
                   'Authorization': 'Bearer ' + token
@@ -108,7 +109,7 @@ loadfiliers()})
     }
 const handlAdd = (e) => {
   e.preventDefault()
-        fetch('http://localhost:8000/add_filiere.php',{
+        fetch(`${BASE_URL}/add_filiere.php`,{
             method : 'POST',
             headers : {
                   'Content-Type' : 'application/json',
