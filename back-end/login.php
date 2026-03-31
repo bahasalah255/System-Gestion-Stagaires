@@ -32,8 +32,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user && password_verify($password, $user['password'])) {
     $token = bin2hex(random_bytes(32));
-    $stmt = $connexion->prepare('UPDATE user SET token = ? , is_connected = ?  WHERE id_user = ?');
-    $stmt->execute([$token, 1,$user['id_user']]);
+    $expiresAt = date('Y-m-d H:i:s', time() + 3600);
+    $stmt = $connexion->prepare('UPDATE user SET token = ?, is_connected = ?, expires_at = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id_user = ?');
+    $stmt->execute([$token, 1, $user['id_user']]);
     echo json_encode([
         "status" => "ok",
         "message" => "Connexion réussie !",
@@ -41,7 +42,8 @@ if ($user && password_verify($password, $user['password'])) {
             "nom" => $user['nom'],
             "role" => $user['role'],
             "id" => $user['id_user'],
-            'token' => $token 
+            'token' => $token,
+            'token_expires_at' => $expiresAt
         ]
     ]);
     exit();

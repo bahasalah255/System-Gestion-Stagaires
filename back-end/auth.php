@@ -21,6 +21,15 @@ function verifyToken($connexion) {
         exit();
     }
 
+    $expiresAtTs = strtotime((string)$user['expires_at']);
+    if ($expiresAtTs === false || time() > $expiresAtTs) {
+        $clearTokenStmt = $connexion->prepare('UPDATE user SET token = NULL, is_connected = 0, expires_at = NOW() WHERE id_user = ?');
+        $clearTokenStmt->execute([$user['id_user']]);
+        echo json_encode(['error' => 'Token expiré']);
+        http_response_code(401);
+        exit();
+    }
+
     return $user;
 }
 ?>

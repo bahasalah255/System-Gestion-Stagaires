@@ -15,7 +15,7 @@ $user = verifyToken($connexion);
 if($user['role'] == 'admin' || $user['role'] == 'formateur'){
 $data = json_decode(file_get_contents("php://input"), true);
 $id = $user['id_user'];
-$stmt = $connexion->prepare('UPDATE user set token = ? , is_connected = ? where id_user = ?');
+$stmt = $connexion->prepare('UPDATE user set token = ?, is_connected = ?, expires_at = NOW() where id_user = ?');
 $stmt->execute([null,0,$id]);
 echo json_encode(['message' => 'Logged out successfully']);
 
