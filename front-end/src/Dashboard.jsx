@@ -60,8 +60,8 @@ function Dashboard() {
     <>
     <div className='row gx-0'>
       
-        <div className={`col-lg-${ isopen ? 3 : 1} col-md-${isopen ? 4 : 1} col-sm-12`}>
-      <div className='sidebar' style={{width : isopen ? '100%' : '95px' , transition : '0.3s'}}>
+        <div className={`col-lg-${ isopen ? 3 : 2} col-md-${isopen ? 4 : 2} col-sm-12`}>
+      <div className='sidebar' style={{width : isopen ? '100%' : '140px' , transition : '0.3s'}}>
         <div className='back d-flex justify-content-between px-1'>
         <h4 className='text-center mt-3' style={{ display : isopen ? 'block' : 'none',  width: isopen ? 'auto' : '0px',
         }}>Admin Panel</h4>
@@ -100,7 +100,7 @@ function Dashboard() {
                <NavLink to='/dashboard/modules' style={linkStyle}>
                  <i className="bi bi-book fs-4"></i> {isopen && "Modules"}
               </NavLink>
-               <NavLink to='/dashboard/utilisateurs' style={linkStyle}>
+               <NavLink to='/dashboard/notes' style={linkStyle}>
                  <i className="bi bi-file-earmark-text fs-4"></i> {isopen && "Notes"}
               </NavLink>
                 <button className="btn btn-danger" onClick={handleLogout}>

@@ -37,7 +37,11 @@ body {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 12px;
-  min-height: 1200px;
+  min-height: 100vh;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
   width: 250px;
   padding: 20px;
   box-shadow: 0 8px 20px rgba(25,25,70,0.04);
