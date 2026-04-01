@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 $data = json_decode(file_get_contents("php://input"), true);
-$id = $data['id'];
+$id = $data['id'] ?? null;
 $stmt = $connexion->prepare('select count(id_stagaire) as counter from stagaire');
 $stmt->execute([]);
 $data = $stmt->fetch(PDO::FETCH_ASSOC);
