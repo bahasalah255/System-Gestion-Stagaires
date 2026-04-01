@@ -16,7 +16,10 @@ const [datas,setdatas] = useState([]);
 const [datach,setdatacha] = useState();
 const [datacount,setdatacount] = useState();
 const [filieres,setfiliere] = useState(null);
-const [users , setusers] = useState(null)
+const [users , setusers] = useState(null);
+const [token,settoken] = useState('');
+const [stagairesdata,setstagairesdata] = useState([]);
+const [affectation,setaffec] = useState([]);
 useEffect(() => {
     fetch(`${BASE_URL}/count_groupes.php`)
     .then(res => res.json())
@@ -24,14 +27,46 @@ useEffect(() => {
         setdata(data)
     })
 },[])
+ useEffect(() => {
+      const userData = localStorage.getItem('user');
+      const user1 = JSON.parse(userData);
+      settoken(user1.token)
+    }, []);
 useEffect(() => {
+    if(!token) return;
     fetch(`${BASE_URL}/count_stagaires.php`)
     .then(res => res.json())
     .then(data => {
         setdatas(data)
         console.log('stagaires',data)
     })
-},[])
+    fetch(`${BASE_URL}/stagaires_last.php`,{
+        method : 'POST',
+          headers : {
+             "Content-Type": "application/json",
+             'Authorization': 'Bearer ' + token
+          },
+      
+    }
+)
+.then(res => res.json())
+.then(data => {
+    setstagairesdata(data)
+})
+ fetch(`${BASE_URL}/afectation_home.php`,{
+        method : 'POST',
+          headers : {
+             "Content-Type": "application/json",
+             'Authorization': 'Bearer ' + token
+          },
+      
+    }
+)
+.then(res => res.json())
+.then(data => {
+    setaffec(data)
+})
+},[token])
 useEffect(() => {
     const list = 
         Object.entries(data).map(([key,value]) => ({
@@ -43,9 +78,7 @@ useEffect(() => {
         stagaires : item.stagairescount
     }))
     setdatacha(chardata)
-    list.map(l => {
-        console.log(l)
-    })
+    
 },[data])
 useEffect(() => {
     const list = 
@@ -58,9 +91,6 @@ useEffect(() => {
         stagaires : item.stagairescount
     }))
     setdatacount(charcount)
-    list.map(l => {
-        console.log(l)
-    })
 },[datas])
 useEffect(() => {
     const us = JSON.parse(localStorage.getItem('user'))
@@ -187,6 +217,84 @@ return(
         </div>
     </div>
   </div>
+</div>
+<div className='row'>
+    <div className='col-lg-6'>
+        <div className='seances'>
+    <h5 className='text-center m-5'>Dernier Stagaires</h5>
+     <div className='utili'>
+        <div className='stagaires'>
+        <table className='table'>
+
+             <thead>
+                    <tr className='table-secondary'>
+                        <th scope="col">ID Stagaire</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Telephone</th>
+                        <th scope="col">Date de naissance</th>
+                        <th scope="col">Groupe</th>
+                        <th scope='col'>Filiere</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {stagairesdata && stagairesdata.map((item) => {
+                        return(
+                            <>
+                            <tr>
+                                <td>{item.id_stagaire}</td>
+                                <td>{item.nom_stagaire}</td>
+                                <td>{item.telephone}</td>
+                                <td>{item.date_naissance}</td>
+                                <td>{item.nom_group}</td>
+                                <td>{item.nom}</td>
+                            </tr>
+                            
+                            </>
+                        );
+                    })}
+                </tbody>
+                </table>
+                </div>
+                </div>
+</div>
+    </div>
+     <div className='col-lg-6'>
+        <div className='seances'>
+    <h5 className='text-center m-5'>Dernier Affectation</h5>
+     <div className='utili'>
+        <div className='stagaires'>
+        <table className='table'>
+
+             <thead>
+                    <tr className='table-secondary'>
+                        <th scope="col">ID Affectation</th>
+                        <th scope="col">Formateur Assigner</th>
+                        <th scope="col">Groupe</th>
+                        <th scope="col">Module</th>
+                        <th scope="col">Annee</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {affectation && affectation.map((item) => {
+                        return(<>
+                        <tr>
+                            <td>{item.id}</td>
+                            <td>{item.formateur}</td>
+                            <td>{item.groupe}</td>
+                            <td>{item.module}</td>
+                            <td>{item.annee}</td>
+
+                        </tr>
+                        </>)
+                    })}
+                </tbody>
+                </table>
+                </div>
+                </div>
+    </div>
+    </div>
 </div>
     </>
 )

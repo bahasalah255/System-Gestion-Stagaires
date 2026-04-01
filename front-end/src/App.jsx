@@ -24,6 +24,7 @@ import Parametres from './Parametres.jsx'
 import StagairesForm from './formateur/StagairesForm.jsx';
 import Cahier from './formateur/Cahier.jsx'
 import Cahier1 from './Cahier.jsx'
+import Notes from './Notes.jsx'
 
 function App() {
   
@@ -45,6 +46,7 @@ function App() {
           <Route path='affectation' element={<Affectation/>}/>
           <Route path='user-delete' element={<DeleteUsers/>}/>
           <Route path='parametres' element={<Parametres/>}/>
+          <Route path='Notes' element={<Notes/>}/>
         </Route>
         <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard-formateur' element={<Dashforma/>}>
